@@ -1,7 +1,15 @@
-;; Object myfuck
+;; Object fuck
 ;; EDE project file.
-(ede-proj-project "myfuck"
-  :name "myfuck"
+(ede-proj-project "fuck"
+  :name "fuck"
   :file "Project.ede"
-  :targets 'nil
+  :targets (list 
+   (ede-proj-target-makefile-archive "fucktarget"
+    :name "fucktarget"
+    :path ""
+    )
+   )
+  :mailinglist "sd44sd44@yeah.net"
+  :web-site-url "http://sd44.is-programmer.com"
+  :configuration-variables 'nil
   )

@@ -30,7 +30,6 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   addImgLayout->addWidget(unSelectAll, 0, 3);
   addImgLayout->addWidget(removeImg, 0, 4);
   addImgLayout->addWidget(removeAll, 0, 5);
-  addImgLayout->addStretch();
   addImg->setLayout(addImgLayout);
   connect(addImgFile, SIGNAL(clicked()), this, SLOT(addFiles()));
   connect(addImgFolder, SIGNAL(clicked()), this, SLOT(addDirs()));
@@ -39,33 +38,21 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   connect(removeImg, SIGNAL(clicked()), this, SLOT(removeSelected()));
   connect(removeAll, SIGNAL(clicked()), model, SLOT(removeAll()));
 
-  convertFormat = new QGroupBox(tr("Convert Format"));
+  convertFormat = new QGroupBox;
   convertBox = new QComboBox;
   convertBox->addItems(loadformat.writeFmts);
   convertBox->setSizeAdjustPolicy(QComboBox::AdjustToContentsOnFirstShow);
   convertBox->setCurrentIndex(0);
   convertTo = new QLabel(tr("Convert Format"));
   convertTo->setBuddy(convertBox);
-  convert = new QPushButton(tr("Convert"));
-  //    connect(convert, clicked(), this, startConvert());
-  QGridLayout convertLayout;
-
+  convert = new QPushButton("Convert");
   QHBoxLayout *convertHL = new QHBoxLayout;
   convertHL->addWidget(convertTo);
   convertHL->addWidget(convertBox);
   convertHL->addStretch();
   convertHL->addWidget(convert);
-  convertLayout.addLayout(convertHL, 0, 0);
-
-  outputLabel = new QLabel(tr("Output Dir"));
-  outputDir = new QLineEdit(QDir::homePath());
-  browseButton = new QPushButton(tr("Browse"));
-  connect(browseButton, SIGNAL(clicked()), this, SLOT(outputBrowse()));
-  convertLayout.addWidget(outputLabel, 1, 0, 1, 1);
-  convertLayout.addWidget(outputDir, 1, 1, 1, 2);
-  convertLayout.addWidget(BrowseButton, 1, 3, 1, 1);
-
-  convertFormat->setLayout(convertLayout);
+  convertFormat->setLayout(convertHL);
+  //    connect(convert, clicked(), this, startConvert());
 
   QVBoxLayout *mainLayout = new QVBoxLayout;
   mainLayout->addWidget(tableView);
@@ -101,15 +88,4 @@ void ImgFileDlg::removeSelected()
 {
   QModelIndexList selectList = tableView->selectionModel()->selectedRows();
   model->removeFile(selectList);
-}
-
-void ImgFileDlg::outputBrowse()
-{
-  
-  QString path = QDir::homePath();
-  QString dir =
-    QFileDialog::getExistingDirectory(this, tr("Add Directory"), path,
-                                      QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-  if (!dir.isEmpty())
-    outputDir->setText(dir);
 }
