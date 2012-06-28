@@ -1,15 +1,7 @@
-;; Object fuck
-;; EDE project file.
-(ede-proj-project "fuck"
-  :name "fuck"
+;; Object imgbatcher
+;; EDE Project Files are auto generated: Do Not Edit
+(ede-proj-project "imgbatcher"
   :file "Project.ede"
-  :targets (list 
-   (ede-proj-target-makefile-archive "fucktarget"
-    :name "fucktarget"
-    :path ""
-    )
-   )
-  :mailinglist "sd44sd44@yeah.net"
-  :web-site-url "http://sd44.is-programmer.com"
-  :configuration-variables 'nil
+  :name "imgbatcher"
+  :targets 'nil
   )

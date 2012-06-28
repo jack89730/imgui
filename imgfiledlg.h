@@ -12,6 +12,7 @@ class QLabel;
 class QPushButton;
 class QComboBox;
 class QAction;
+class QLineEdit;
 
 class ImgFileDlg : public QDialog
 {
@@ -21,7 +22,7 @@ class ImgFileDlg : public QDialog
  public slots:
   void outputBrowse(void);
  private slots:
-  //     void startConvert();
+  // void startConvert();
   void addFiles();
   void addDirs();
   void removeSelected();

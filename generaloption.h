@@ -11,7 +11,7 @@ class QDoubleSpinBox;
 
 // 具有的功能 quality压缩级别， profile(*),strip, keepexif,rorate,
 // reduceNoise降噪， despeckle亮点降噪, addnoise, 高斯模糊
-// gaussianblur,炭笔效果charcoal，enhance, 直方图均衡，shave修建边缘，
+// gaussianblur,炭笔效果charcoal，enhance, 直方图均衡，shave修剪边缘，
 // equalize,油画效果oilpaint, trim 移除背景色边缘，sharpen 锐化
 class GeneralOption : public QDialog
 {
