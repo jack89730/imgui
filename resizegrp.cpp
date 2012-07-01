@@ -61,6 +61,7 @@ ResizeGrp::ResizeGrp(QWidget *parent)
   
 
   resize->setLayout(resizeGrid);
+  resize->adjustSize();
 }
 
 // Fixme: dirty code?

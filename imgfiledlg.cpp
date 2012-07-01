@@ -9,7 +9,7 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   tableView->horizontalHeader()->setStretchLastSection(true);
   tableView->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
   tableView->horizontalHeader()->setResizeMode(4, QHeaderView::Stretch);
-  tableView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  tableView->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
   tableView->setShowGrid(false);
 
   tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -67,6 +67,8 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
 
   QVBoxLayout *mainLayout = new QVBoxLayout;
   mainLayout->addWidget(tableView);
+  addImg->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+  convertFormat->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   mainLayout->addWidget(addImg);
   mainLayout->addWidget(convertFormat);
   setLayout(mainLayout);
