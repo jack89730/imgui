@@ -187,8 +187,6 @@ void ImgFileModel::convertAll()
             img.filterType(LanczosFilter);
           case 2:
             img.filterType(MitchellFilter);
-          default:
-            std::cout << "fuck filterType, that's an error" << std::endl;
         }
       }
       if (settings.value("resize/geometry").isValid()) {

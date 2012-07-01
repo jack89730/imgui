@@ -49,22 +49,22 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   convertTo = new QLabel(tr("Convert Format"));
   convertTo->setBuddy(convertBox);
   convert = new QPushButton(tr("Convert"));
-  // connect(convert, SIGNAL(clicked()), this, SLOT(startConvert()));
+  connect(convert, SIGNAL(clicked()), this, SLOT(startConvert()));
   QGridLayout *convertLayout = new QGridLayout;
 
   // QHBoxLayout *convertHL = new QHBoxLayout(this);
-  convertLayout->addWidget(convertTo, 0, 0, 1, 1);
-  convertLayout->addWidget(convertBox, 0, 1, 1, 2);
-  convertLayout->addWidget(convert, 0, 3, 1, 1);
+  convertLayout->addWidget(convertTo, 1, 0, 1, 1);
+  convertLayout->addWidget(convertBox, 1, 1, 1, 2);
+  convertLayout->addWidget(convert, 1, 3, 1, 1);
   // convertLayout.addLayout(convertHL, 0, 0);
 
   outputLabel = new QLabel(tr("Output Dir"));
   outputDir = new QLineEdit(QDir::homePath());
   browseButton = new QPushButton(tr("Browse"));
   connect(browseButton, SIGNAL(clicked()), this, SLOT(outputBrowse()));
-  convertLayout->addWidget(outputLabel, 1, 0, 1, 1);
-  convertLayout->addWidget(outputDir, 1, 1, 1, 2);
-  convertLayout->addWidget(browseButton, 1, 3, 1, 1);
+  convertLayout->addWidget(outputLabel, 0, 0, 1, 1);
+  convertLayout->addWidget(outputDir, 0, 1, 1, 2);
+  convertLayout->addWidget(browseButton, 0, 3, 1, 1);
 
   convertFormat->setLayout(convertLayout);
   convertFormat->setSizePolicy(QSizePolicy::MinimumExpanding,
@@ -117,3 +117,6 @@ void ImgFileDlg::outputBrowse()
   if (!dir.isEmpty())
     outputDir->setText(dir);
 }
+
+  
+

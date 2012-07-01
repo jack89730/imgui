@@ -42,7 +42,7 @@ ResizeGrp::ResizeGrp(QWidget *parent)
   connect(heightEdit, SIGNAL(valueChanged(int)), this,
           SLOT(keepRatio(int)));
   
-  filterType << "Lanczos" << "Mitchell";
+  filterType << "Auto" << "Lanczos" << "Mitchell";
   filterBox = new QComboBox;
   filterBox->addItems(filterType);
   filterBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);

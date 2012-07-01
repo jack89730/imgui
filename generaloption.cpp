@@ -12,6 +12,7 @@ GeneralOption::GeneralOption(QWidget *parent)
   QGridLayout *groupGrid = new QGridLayout;
 
   quality = new QCheckBox(tr("JPG/PNG Quality "));
+  quality->setCheckState(Qt::Checked);
   qualityBox = new QSpinBox;
   qualityBox->setRange(1, 100);
   qualityBox->setValue(90);
