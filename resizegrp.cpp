@@ -4,7 +4,7 @@
 ResizeGrp::ResizeGrp(QWidget *parent)
   : QDialog(parent)
 {
-   resize = new QGroupBox(tr("Resize"), this);
+  resize = new QGroupBox(tr("Resize"), this);
   widthEdit = new QSpinBox();
   widthEdit->setRange(1, 100);
   widthEdit->setValue(100);
@@ -124,14 +124,14 @@ void ResizeGrp::resizeOption(void)
   if (onlyGreater->isChecked())
     geometry += '>';
 
-  QCoreApplication::setOrganizationName("Sd44 Soft");
-  QCoreApplication::setOrganizationDomain("sd44.is-programmer.com");
-  QCoreApplication::setApplicationName("Super Img Batcher");
+  QApplication::setOrganizationName("Sd44 Soft");
+  QApplication::setOrganizationDomain("sd44.is-programmer.com");
+  QApplication::setApplicationName("Super Img Batcher");
   QSettings settings;
 
   if (geometry != "100x100+0+0%")
-    settings.setValue("geometry", geometry);
+    settings.setValue("resize/geometry", geometry);
   if (filterBox->currentIndex() != 0)
-    settings.setValue("filterBox", filterBox->currentIndex());
+    settings.setValue("resize/filterBox", filterBox->currentIndex());
 }
   

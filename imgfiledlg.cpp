@@ -46,7 +46,7 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   convertTo = new QLabel(tr("Convert Format"));
   convertTo->setBuddy(convertBox);
   convert = new QPushButton(tr("Convert"));
-  // connect(convert, clicked(), this, startConvert());
+  // connect(convert, SIGNAL(clicked()), this, SLOT(startConvert()));
   QGridLayout *convertLayout = new QGridLayout;
 
   // QHBoxLayout *convertHL = new QHBoxLayout(this);

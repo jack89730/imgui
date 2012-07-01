@@ -1,8 +1,10 @@
 #include "imgfilemodel.h"
 #include <QtGui>
+#include <iostream>
+#include <string>
 
 ImgFileModel::ImgFileModel(QObject *parent)
-  : QAbstractTableModel(parent)
+    : QAbstractTableModel(parent)
 {
   modelheader << tr("Check") << tr("Filename") << tr("FileSize") << tr("FileType") << tr("AbsolutePath");
 }
@@ -29,17 +31,17 @@ QVariant ImgFileModel::data(const QModelIndex &index, int role) const
   if (role == Qt::DisplayRole) {
     QString tmp;
     switch (index.column()) {
-    case 1:
-      return imgfilelist.at(index.row()).fileName();
-    case 2:
-      return imgfilelist.at(index.row()).size();
-    case 3:
-      tmp = imgfilelist.at(index.row()).suffix();
-      return tmp.toUpper();
-    case 4:
-      return imgfilelist.at(index.row()).absolutePath();
-    default:
-      return QVariant();
+      case 1:
+        return imgfilelist.at(index.row()).fileName();
+      case 2:
+        return imgfilelist.at(index.row()).size();
+      case 3:
+        tmp = imgfilelist.at(index.row()).suffix();
+        return tmp.toUpper();
+      case 4:
+        return imgfilelist.at(index.row()).absolutePath();
+      default:
+        return QVariant();
     }
   }
   if (role == Qt::CheckStateRole && index.column() == 0) {
@@ -164,3 +166,100 @@ void ImgFileModel::removeAll()
   imgfilechecked.clear();
   reset();
 }
+
+void ImgFileModel::convertAll()
+{
+  Image img;
+
+  QApplication::setOrganizationName("Sd44 Soft");
+  QApplication::setOrganizationDomain("sd44.is-programmer.com");
+  QApplication::setApplicationName("Super Img Batcher");
+  QSettings settings;
+
+  while (!imgfilelist.isEmpty()) {
+    QString imgFile = imgfilelist.at(0).absoluteFilePath();
+    try {
+      img.read(imgFile.toStdString());
+
+      if (int filterType = settings.value("resize/filterBox").toInt()) {
+        switch (filterType) {
+          case 1:
+            img.filterType(LanczosFilter);
+          case 2:
+            img.filterType(MitchellFilter);
+          default:
+            std::cout << "fuck filterType, that's an error" << std::endl;
+        }
+      }
+      if (settings.value("resize/geometry").isValid()) {
+        std::string tmpgeo = settings.value("resize/geometry").toString().toStdString();
+        img.zoom(tmpgeo);
+      }
+      
+      settings.beginGroup("general");
+      if (settings.value("quality").toBool())
+        img.quality(settings.value("qualityBox").toInt());
+      Blob exifBlob;
+      if (settings.value("eraseProfile").toBool()) {
+        if (settings.value("keepExif").toBool())
+          img.profile("EXIF", exifBlob);
+        img.profile("*", Blob());
+        img.profile("EXIF", exifBlob);
+      }
+      if (settings.value("reduceNoise").toBool())
+        img.reduceNoise();
+      if (settings.value("reduceSpeckleNoise").toBool())
+        img.despeckle();
+      if (settings.value("enhance").toBool())
+        img.enhance();
+      if (settings.value("normalize").toBool())
+        img.normalize();
+      if (settings.value("trim").toBool())
+        img.trim();
+      if (settings.value("edge").toBool())
+        img.edge();
+      if (settings.value("emboss").toBool())
+        img.emboss();
+      if (settings.value("equalize").toBool())
+        img.equalize();
+      if (settings.value("monoChrome").toBool()) {
+        img.quantizeColorSpace(GRAYColorspace);
+        img.quantizeColors(2);
+        img.quantize();
+        img.normalize();
+      }
+      if (settings.value("addNoise").toBool()) {
+        int noise = settings.value("noiseType").toInt();
+        switch (noise) {
+          case 0:
+            img.addNoise(UniformNoise);
+          case 1:
+            img.addNoise(GaussianNoise);
+          case 2:
+            img.addNoise(MultiplicativeGaussianNoise);
+          case 3:
+            img.addNoise(ImpulseNoise);
+          case 4:
+            img.addNoise(LaplacianNoise);
+          case 5:
+            img.addNoise(PoissonNoise);
+          default:
+            img.addNoise(RandomNoise);
+        }
+        if (settings.value("sharpen").toBool())
+          img.sharpen(settings.value("sharpenRadius").toDouble());
+        if (settings.value("charcoal").toBool())
+          img.charcoal(settings.value("charcoalRadius").toDouble());
+        if (settings.value("oilPaint").toBool())
+          img.oilPaint(settings.value("oilRadius").toDouble());
+        // FIXME: 转换图片文件后的文件夹 img.write()....
+        imgfilechecked.remove(imgFile);
+        reset();
+      }
+    }
+    catch( Exception &error_ ) {
+      cout << "Caught exception: " << error_.what() << endl;
+    }
+  }
+}
+  

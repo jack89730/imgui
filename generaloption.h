@@ -48,7 +48,6 @@ class GeneralOption : public QDialog
   // QDoubleSpinBox *charcoalSigma;
   QCheckBox *oilPaint;
   QDoubleSpinBox *oilRadius;
-  
 };
 
 #endif /* _GENARALOPTIONOPTION_H_ */

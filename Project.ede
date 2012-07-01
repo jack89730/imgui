@@ -1,7 +1,0 @@
-;; Object imgbatcher
-;; EDE Project Files are auto generated: Do Not Edit
-(ede-proj-project "imgbatcher"
-  :file "Project.ede"
-  :name "imgbatcher"
-  :targets 'nil
-  )

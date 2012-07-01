@@ -1,5 +1,5 @@
-#ifndef  IMGFILEDLG_INC
-#define  IMGFILEDLG_INC
+#ifndef  IMGFILEDLG_H
+#define  IMGFILEDLG_H
 
 
 #include "loadformats.h"
@@ -17,7 +17,7 @@ class QLineEdit;
 class ImgFileDlg : public QDialog
 {
   Q_OBJECT
-  public:
+ public:
   ImgFileDlg(QWidget *parent = 0);
  public slots:
   void outputBrowse(void);
@@ -39,7 +39,6 @@ class ImgFileDlg : public QDialog
   QLineEdit *outputDir;
   QPushButton *browseButton;
  
-    
   QGroupBox *addImg;
   QPushButton *addImgFile;
   QPushButton *addImgFolder;
@@ -49,4 +48,4 @@ class ImgFileDlg : public QDialog
   QPushButton *removeAll;
 };
 
-#endif   /* ----- #ifndef IMGFILEDLG_INC  ----- */
+#endif   /* ----- #ifndef IMGFILEDLG_H  ----- */
