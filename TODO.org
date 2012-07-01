@@ -1,17 +1,24 @@
-* 一些需要提供参数的函数，例如oilPaint, charcoal等，不知道其参数的具体限制值，目前是随便猜测Range。
+* TODO 一些需要提供参数的函数，例如oilPaint, charcoal等，不知道其参数的具体限制值，目前是随便猜测Range。
+
+* TODO 对于QT SIGNAL/SLOT了解不深刻，程序中有可以作为public函数的也做成了public slots。。。需要整改。。。。尤其是Convert触发的SIGNAL引发各模块产生QSettings相关内容，高度耦合。。。需要整改
+* TODO 界面整改，菜单栏，工具栏，右键菜单是否加入？
 
 * TODO imgfilemodel中 REMOVE SELECTED实现过于复杂,占用资源。但实际中较少有人会批量几千张图片，对软件速度影响较小。。
 
 * TODO 是否加入其他Resize Filter?
 ** 有20多种Filter，目前只加入了两种效果最好的，Lanczos和Mitchell。外加自动选择。
 
+
 * TODO 根据Q3ACN需求实现界面上或者功能上的整改。
 ** TODO 未来加入批量重命名操作？
 
 * TODO 程序注释改为全英文
 
+
 * TODO 遥远的未来添加图片预览功能？
 
-* DONE 功能函数的参数调用方式。目前采用的是全局QSettings，自动根据各平台具体实现。
 
+* DONE 功能函数的参数调用方式。目前采用的是全局QSettings，自动根据各平台具体实现。如果你有更好的方式，请告知我。
+
+sd44sd44@yeah.net
   

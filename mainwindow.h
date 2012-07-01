@@ -19,6 +19,9 @@ class MainWindow : public QMainWindow
  public:
   MainWindow();
 
+ public slots:
+  void convertNow(void);
+
  protected:
   void closeEvent(QCloseEvent *event);
  private:

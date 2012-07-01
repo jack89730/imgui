@@ -21,6 +21,8 @@ class ImgFileDlg : public QWidget
   ImgFileDlg(QWidget *parent = 0);
  public slots:
   void outputBrowse(void);
+  void convertNowDlg();
+                         
  private slots:
   void addFiles();
   void addDirs();

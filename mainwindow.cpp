@@ -8,7 +8,8 @@ MainWindow::MainWindow()
   option = new GeneralOption;
   mainDlg = new ImgFileDlg;
 
-  Convert = new QPushButton;
+  Convert = new QPushButton(tr("Convert Now"));
+  connect(Convert, SIGNAL(clicked()), this, SLOT(convertNow()));
   convertHL = new QHBoxLayout;
   convertHL->addStretch();
   convertHL->addWidget(Convert);
@@ -24,9 +25,11 @@ MainWindow::MainWindow()
   topLayout = new QHBoxLayout;
   topLayout->addLayout(leftLayout);
   topLayout->addLayout(rightLayout);
-
-  setLayout(topLayout);
-
+  
+  QWidget *widget = new QWidget;
+  widget->setLayout(topLayout);
+  setCentralWidget(widget);
+  
   setWindowTitle(tr("Fucking Image Batcher"));
   readSettings();
 }
@@ -65,5 +68,12 @@ void MainWindow::writeSettings()
   settings.remove("resize");
   settings.remove("general");
   settings.endGroup();
+}
+
+void MainWindow::convertNow()
+{
+  resize->resizeOption();
+  option->optionSettings();
+  mainDlg->convertNowDlg();
 }
 

@@ -115,5 +115,8 @@ void ImgFileDlg::outputBrowse()
     outputDir->setText(dir);
 }
 
+void ImgFileDlg::convertNowDlg()
+{
+  model->convertAll();
+}
   
-
