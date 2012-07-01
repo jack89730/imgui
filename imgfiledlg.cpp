@@ -48,14 +48,11 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   convertBox->setCurrentIndex(0);
   convertTo = new QLabel(tr("Convert Format"));
   convertTo->setBuddy(convertBox);
-  convert = new QPushButton(tr("Convert"));
-  connect(convert, SIGNAL(clicked()), this, SLOT(startConvert()));
   QGridLayout *convertLayout = new QGridLayout;
 
   // QHBoxLayout *convertHL = new QHBoxLayout(this);
   convertLayout->addWidget(convertTo, 1, 0, 1, 1);
   convertLayout->addWidget(convertBox, 1, 1, 1, 2);
-  convertLayout->addWidget(convert, 1, 3, 1, 1);
   // convertLayout.addLayout(convertHL, 0, 0);
 
   outputLabel = new QLabel(tr("Output Dir"));

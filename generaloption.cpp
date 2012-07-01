@@ -7,7 +7,7 @@ GeneralOption::GeneralOption(QWidget *parent)
   generalOption = new QGroupBox(tr("Genaral Option"), this);
   QVBoxLayout *layout = new QVBoxLayout(this);
   layout->addWidget(generalOption);
-  this->setLayout(layout);
+  setLayout(layout);
 
   QGridLayout *groupGrid = new QGridLayout;
 

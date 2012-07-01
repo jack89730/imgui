@@ -4,9 +4,9 @@
 ResizeGrp::ResizeGrp(QWidget *parent)
   : QWidget(parent)
 {
-  resize = new QGroupBox(tr("Resize"), this);
+  resize = new QGroupBox(tr("Resize"));
   QVBoxLayout* layout = new QVBoxLayout(this);
-  this->setLayout(layout);
+  setLayout(layout);
   layout->addWidget(resize);
   widthEdit = new QSpinBox();
   widthEdit->setRange(1, 100);

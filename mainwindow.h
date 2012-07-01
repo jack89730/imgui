@@ -8,6 +8,9 @@
 #include "resizegrp.h"
 
 class QSplitter;
+class QPushButton;
+class QVBoxLayout;
+class QHBoxLayout;
 
 class MainWindow : public QMainWindow
 {
@@ -25,10 +28,13 @@ class MainWindow : public QMainWindow
   ImgFileDlg *mainDlg;
   GeneralOption *option;
   ResizeGrp *resize;
+  QPushButton *Convert;
 
-  QSplitter *mainSplitter;
-  QSplitter *rightSplitter;
-  QSplitter *topSplitter;
+  QHBoxLayout *convertHL;
+  QVBoxLayout *leftLayout;
+  QVBoxLayout *rightLayout;
+  QHBoxLayout *topLayout;
+
 };
   
 #endif /* _MAINWINDOW_H_ */

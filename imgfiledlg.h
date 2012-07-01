@@ -22,7 +22,6 @@ class ImgFileDlg : public QWidget
  public slots:
   void outputBrowse(void);
  private slots:
-  // void startConvert();
   void addFiles();
   void addDirs();
   void removeSelected();
@@ -34,7 +33,6 @@ class ImgFileDlg : public QWidget
   QGroupBox *convertFormat;
   QLabel *convertTo;
   QComboBox *convertBox;
-  QPushButton *convert;
   QLabel *outputLabel;
   QLineEdit *outputDir;
   QPushButton *browseButton;
