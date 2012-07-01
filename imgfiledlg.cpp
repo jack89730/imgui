@@ -2,14 +2,15 @@
 #include <QtGui>
 
 ImgFileDlg::ImgFileDlg(QWidget *parent)
-  : QDialog(parent)
+  : QWidget(parent)
 {
   model = new ImgFileModel;
   tableView = new QTableView;
   tableView->horizontalHeader()->setStretchLastSection(true);
   tableView->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
   tableView->horizontalHeader()->setResizeMode(4, QHeaderView::Stretch);
-  tableView->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+  tableView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  tableView->adjustSize();
   tableView->setShowGrid(false);
 
   tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -31,6 +32,8 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   addImgLayout->addWidget(removeImg, 0, 4);
   addImgLayout->addWidget(removeAll, 0, 5);
   addImg->setLayout(addImgLayout);
+  addImg->setSizePolicy(QSizePolicy::MinimumExpanding,
+                        QSizePolicy::MinimumExpanding);
   connect(addImgFile, SIGNAL(clicked()), this, SLOT(addFiles()));
   connect(addImgFolder, SIGNAL(clicked()), this, SLOT(addDirs()));
   connect(selectAll, SIGNAL(clicked()), model, SLOT(selectAll()));
@@ -41,7 +44,7 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   convertFormat = new QGroupBox(tr("Convert Format"));
   convertBox = new QComboBox(this);
   convertBox->addItems(loadformat.writeFmts);
-  convertBox->setSizeAdjustPolicy(QComboBox::AdjustToContentsOnFirstShow);
+  convertBox->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLength);
   convertBox->setCurrentIndex(0);
   convertTo = new QLabel(tr("Convert Format"));
   convertTo->setBuddy(convertBox);
@@ -64,13 +67,14 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   convertLayout->addWidget(browseButton, 1, 3, 1, 1);
 
   convertFormat->setLayout(convertLayout);
+  convertFormat->setSizePolicy(QSizePolicy::MinimumExpanding,
+                               QSizePolicy::Minimum);
 
   QVBoxLayout *mainLayout = new QVBoxLayout;
   mainLayout->addWidget(tableView);
-  addImg->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  convertFormat->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   mainLayout->addWidget(addImg);
   mainLayout->addWidget(convertFormat);
+  mainLayout->setStretchFactor(tableView, 1);
   setLayout(mainLayout);
 }
 

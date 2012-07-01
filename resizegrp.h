@@ -14,7 +14,7 @@ class QIntValidator;
 class QGridLayout;
 class QStringList;
 
-class ResizeGrp : public QDialog
+class ResizeGrp : public QWidget
 {
   Q_OBJECT
  public:

@@ -14,7 +14,7 @@ class QComboBox;
 class QAction;
 class QLineEdit;
 
-class ImgFileDlg : public QDialog
+class ImgFileDlg : public QWidget
 {
   Q_OBJECT
  public:

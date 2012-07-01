@@ -2,9 +2,12 @@
 #include <QtGui>
 
 ResizeGrp::ResizeGrp(QWidget *parent)
-  : QDialog(parent)
+  : QWidget(parent)
 {
   resize = new QGroupBox(tr("Resize"), this);
+  QVBoxLayout* layout = new QVBoxLayout(this);
+  this->setLayout(layout);
+  layout->addWidget(resize);
   widthEdit = new QSpinBox();
   widthEdit->setRange(1, 100);
   widthEdit->setValue(100);
@@ -51,7 +54,7 @@ ResizeGrp::ResizeGrp(QWidget *parent)
   lineLayout->insertRow(2, tr("X offset"), xOffset);
   lineLayout->insertRow(3, tr("Y offset"), yOffset);
   lineLayout->insertRow(4, tr("Resize Filter"), filterBox);
-  resizeGrid = new QGridLayout(this);
+  resizeGrid = new QGridLayout;
 
   resizeGrid->addLayout(lineLayout, 0, 0, 5, 2);
   resizeGrid->addWidget(percent, 0, 2, 1, 1);
