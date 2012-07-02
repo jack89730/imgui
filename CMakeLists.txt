@@ -8,12 +8,6 @@ SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/" "${CMAKE
 
 
 SET(SRC_LIST
-  src/generaloption.h
-  src/imgfiledlg.h
-  src/imgfilemodel.h
-  src/loadformats.h
-  src/mainwindow.h
-  src/resizegrp.h
   src/generaloption.cpp
   src/imgfiledlg.cpp
   src/imgfilemodel.cpp
@@ -24,7 +18,6 @@ SET(SRC_LIST
   )
 
 SET(MOC_HDLIST
-  src/generaloption.h
   src/imgfiledlg.h
   src/imgfilemodel.h
   src/mainwindow.h
@@ -40,6 +33,7 @@ INCLUDE_DIRECTORIES (${MAGICK++_INCLUDE_DIR} ${MAGICK_INCLUDE_DIR} . src/ src/in
 
 ADD_EXECUTABLE(fuckImgBatch
   ${SRC_LIST}
+  ${fuckingimg_MOC_SRCS} 
   )
 TARGET_LINK_LIBRARIES(fuckImgBatch
   ${QT_LIBRARIES}
