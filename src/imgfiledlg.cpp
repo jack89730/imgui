@@ -94,7 +94,13 @@ void ImgFileDlg::addDirs()
     QFileDialog::getExistingDirectory(this, tr("Add Directory"), path,
                                       QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
   if (!dir.isEmpty()) {
-    model->addImgDir(dir, loadformat.readFmts);
+    int ret = QMessageBox::warning(this, tr("contant SubDir?"),
+                                   tr("Do you want add files in subdirectory recursively ?\n"),
+                                   QMessageBox::Ok | QMessageBox::Cancel);
+    if (ret == QMessageBox::Ok)
+      model->addImgDirs(dir, loadformat.readFmts);
+    else
+      model->addImgDir(dir, loadformat.readFmts);
   }
 }
 
@@ -117,6 +123,27 @@ void ImgFileDlg::outputBrowse()
 
 void ImgFileDlg::convertNowDlg()
 {
+  QApplication::setOrganizationName("Sd44 Soft");
+  QApplication::setOrganizationDomain("sd44.is-programmer.com");
+  QApplication::setApplicationName("Super Img Batcher");
+  QSettings settings;
+
+  QDir dir(outputDir->text());
+  if (!dir.exists()) {
+    int ret = QMessageBox::warning(this, tr("The output Dir isn't Exists"),
+                                   tr("Do you want auto Create this Dir \n",
+                                      "If you Not, images will not to Convert"),
+                                   QMessageBox::Ok | QMessageBox::Cancel);
+    if (ret == QMessageBox::Ok)
+      dir.mkpath(outputDir->text());
+    else 
+      return;
+  }
+
+  settings.beginGroup("output");
+  settings.setValue("outputDir", outputDir->text());
+  QString outFormat = convertBox->currentText();
+  settings.setValue("format", outFormat.left(outFormat.indexOf(' ')));
   model->convertAll();
 }
   

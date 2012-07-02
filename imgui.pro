@@ -7,6 +7,7 @@ TARGET =
 DEPENDPATH += .
 INCLUDEPATH += .
 
+CONFIG+=debug
 # Input
 HEADERS += generaloption.h \
            imgfiledlg.h \

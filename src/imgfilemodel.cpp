@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 
+using namespace std;
+using namespace Magick;
 ImgFileModel::ImgFileModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
@@ -24,7 +26,7 @@ QVariant ImgFileModel::data(const QModelIndex &index, int role) const
   if (!index.isValid()) {
     return QVariant();
   }
-  
+
   if (role == Qt::TextAlignmentRole) {
     return int(Qt::AlignLeft | Qt::AlignVCenter);
   }
@@ -110,11 +112,24 @@ void ImgFileModel::addImgDir(const  QString path, const QStringList namefilters)
       imgfilechecked[newfilelist.at(i).absoluteFilePath()] = true;
     }
   }
+  reset();
+}
+void ImgFileModel::addImgDirs(const  QString path, const QStringList namefilters)
+{
+  QDir dir(path);
+  QList<QFileInfo> newfilelist;
+  newfilelist += dir.entryInfoList(namefilters, QDir::Files | QDir::CaseSensitive);
+  for (int i = 0; i < newfilelist.count(); i++) {
+    if (imgfilechecked.find(newfilelist.at(i).absoluteFilePath()) == imgfilechecked.end()) {
+      imgfilelist += newfilelist.at(i);
+      imgfilechecked[newfilelist.at(i).absoluteFilePath()] = true;
+    }
+  }
 
   QStringList dirs = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot | QDir::Hidden) ;
   for (int i = 0; i < dirs.count() && dirs.at(i) != QString() ; i++) {
     QString absolutePath(path + QDir::separator() + dirs.at(i));
-    addImgDir(absolutePath, namefilters);
+    addImgDirs(absolutePath, namefilters);
   }
   reset();
 }
@@ -152,8 +167,9 @@ void ImgFileModel::removeFile(QModelIndexList indexlist)
   }
   for (int j = 0; j < rmFiles.size(); j++) {
     for (int k = 0; k < imgfilelist.size() ; ++k) {
-      if (imgfilelist.at(k).absoluteFilePath() == rmFiles.at(j))
-        imgfilelist.removeAt(k); 
+      if (imgfilelist.at(k).absoluteFilePath() == rmFiles.at(j)) {
+        imgfilelist.removeAt(k);
+      }
     }
     imgfilechecked.remove(rmFiles.at(j));
   }
@@ -179,7 +195,7 @@ void ImgFileModel::convertAll()
   while (!imgfilelist.isEmpty()) {
     QString imgFile = imgfilelist.at(0).absoluteFilePath();
     try {
-      img.read(imgFile.toStdString());
+      img.read((const char *)imgFile.toLocal8Bit());
 
       if (int filterType = settings.value("resize/filterBox").toInt()) {
         switch (filterType) {
@@ -193,33 +209,43 @@ void ImgFileModel::convertAll()
         std::string tmpgeo = settings.value("resize/geometry").toString().toStdString();
         img.zoom(tmpgeo);
       }
-      
+
       settings.beginGroup("general");
-      if (settings.value("quality").toBool())
+      if (settings.value("quality").toBool()) {
         img.quality(settings.value("qualityBox").toInt());
+      }
       Blob exifBlob;
       if (settings.value("eraseProfile").toBool()) {
-        if (settings.value("keepExif").toBool())
+        if (settings.value("keepExif").toBool()) {
           img.profile("EXIF", exifBlob);
+        }
         img.profile("*", Blob());
         img.profile("EXIF", exifBlob);
       }
-      if (settings.value("reduceNoise").toBool())
+      if (settings.value("reduceNoise").toBool()) {
         img.reduceNoise();
-      if (settings.value("reduceSpeckleNoise").toBool())
+      }
+      if (settings.value("reduceSpeckleNoise").toBool()) {
         img.despeckle();
-      if (settings.value("enhance").toBool())
+      }
+      if (settings.value("enhance").toBool()) {
         img.enhance();
-      if (settings.value("normalize").toBool())
+      }
+      if (settings.value("normalize").toBool()) {
         img.normalize();
-      if (settings.value("trim").toBool())
+      }
+      if (settings.value("trim").toBool()) {
         img.trim();
-      if (settings.value("edge").toBool())
+      }
+      if (settings.value("edge").toBool()) {
         img.edge();
-      if (settings.value("emboss").toBool())
+      }
+      if (settings.value("emboss").toBool()) {
         img.emboss();
-      if (settings.value("equalize").toBool())
+      }
+      if (settings.value("equalize").toBool()) {
         img.equalize();
+      }
       if (settings.value("monoChrome").toBool()) {
         img.quantizeColorSpace(GRAYColorspace);
         img.quantizeColors(2);
@@ -244,20 +270,38 @@ void ImgFileModel::convertAll()
           default:
             img.addNoise(RandomNoise);
         }
-        if (settings.value("sharpen").toBool())
-          img.sharpen(settings.value("sharpenRadius").toDouble());
-        if (settings.value("charcoal").toBool())
-          img.charcoal(settings.value("charcoalRadius").toDouble());
-        if (settings.value("oilPaint").toBool())
-          img.oilPaint(settings.value("oilRadius").toDouble());
-        // FIXME: 转换图片文件后的文件夹 img.write()....
-        imgfilechecked.remove(imgFile);
-        reset();
       }
+      if (settings.value("sharpen").toBool()) {
+        img.sharpen(settings.value("sharpenRadius").toDouble());
+      }
+      if (settings.value("charcoal").toBool()) {
+        img.charcoal(settings.value("charcoalRadius").toDouble());
+      }
+      if (settings.value("oilPaint").toBool()) {
+        img.oilPaint(settings.value("oilRadius").toDouble());
+      }
+      settings.endGroup();
+      
+      // FIXME: 转换图片文件后的文件夹 img.write()....
+      settings.beginGroup("output");
+      // TODO: 批量修改文件名
+      QString path = QDir::toNativeSeparators(QDir::homePath());
+      if (settings.value("outputDir").isValid()) {
+        path = settings.value("outputDir").toString() + "/";
+      }
+      QString filename = imgfilelist.at(0).completeBaseName();
+      filename += "." + settings.value("format", "fuck").toString();
+      settings.endGroup();
+      QString to8bit(path +filename);
+      std::string writeFile = (const char *)to8bit.toLocal8Bit();
+      img.write(writeFile);
     }
-    catch( Exception &error_ ) {
-      cout << "Caught exception: " << error_.what() << endl;
+    catch ( Exception &error_ ) {
+      qDebug() << "Caught exception: " << error_.what() << endl;
     }
+    imgfilelist.removeAt(0);
+    imgfilechecked.remove(imgFile);
+    reset();
   }
 }
-  
+

@@ -25,6 +25,7 @@ class ImgFileModel : public QAbstractTableModel
   Qt::ItemFlags flags(const QModelIndex &index) const;
   void addImgFile(const QStringList &filenames); 
   void addImgDir(const QString path, const QStringList namefilters = QStringList());
+  void addImgDirs(const QString path, const QStringList namefilters = QStringList());
 
  public slots:
   void selectAll();
