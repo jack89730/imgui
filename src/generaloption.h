@@ -2,6 +2,7 @@
 #define _GENARALOPTION_H_
 
 #include <QDialog>
+#include <QCoreApplication>
 
 class QGroupBox;
 class QCheckBox;
@@ -15,9 +16,10 @@ class QDoubleSpinBox;
 // equalize,油画效果oilpaint, trim 移除背景色边缘，sharpen 锐化
 class GeneralOption : public QWidget
 {
+  Q_DECLARE_TR_FUNCTIONS(GeneralOption)
+
  public:
   GeneralOption(QWidget *parent = 0);
- public slots:
   void optionSettings(void);
  private:
   QGroupBox *generalOption;

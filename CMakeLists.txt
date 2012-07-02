@@ -26,15 +26,31 @@ SET(MOC_HDLIST
 
 FIND_PACKAGE(Qt4 REQUIRED)
 INCLUDE (${QT_USE_FILE})
-QT4_WRAP_CPP(fuckingimg_MOC_SRCS ${MOC_HDLIST})
 
 FIND_PACKAGE(Magick REQUIRED)
 INCLUDE_DIRECTORIES (${MAGICK++_INCLUDE_DIR} ${MAGICK_INCLUDE_DIR} . src/ src/include)
 
+SET(fuckingimg_RESOURCES  
+    resources.qrc
+)
+
+# NO NEED NOW
+# SET(fuckingimg_LANG
+#   language/zh_CN.ts
+# )
+
+QT4_WRAP_CPP(fuckingimg_MOC_SRCS ${MOC_HDLIST})
+QT4_ADD_RESOURCES(fuckingimg_RESOURCES ${fuckingimg_RESOURCES})
+
+# NO NEED NOW
+# QT4_ADD_TRANSLATION(fuckingimg_RESOURCES ${fuckingimg_LANG}) 
+
 ADD_EXECUTABLE(fuckImgBatch
   ${SRC_LIST}
   ${fuckingimg_MOC_SRCS} 
+  ${fuckingimg_RESOURCES}
   )
+
 TARGET_LINK_LIBRARIES(fuckImgBatch
   ${QT_LIBRARIES}
   ${MAGICK_LIBRARIES}
