@@ -8,6 +8,12 @@ SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/" "${CMAKE
 
 
 SET(SRC_LIST
+  src/generaloption.h
+  src/imgfiledlg.h
+  src/imgfilemodel.h
+  src/loadformats.h
+  src/mainwindow.h
+  src/resizegrp.h
   src/generaloption.cpp
   src/imgfiledlg.cpp
   src/imgfilemodel.cpp
@@ -25,14 +31,12 @@ SET(MOC_HDLIST
   src/resizegrp.h
   )
 
-
-
 FIND_PACKAGE(Qt4 REQUIRED)
 INCLUDE (${QT_USE_FILE})
 QT4_WRAP_CPP(fuckingimg_MOC_SRCS ${MOC_HDLIST})
 
 FIND_PACKAGE(Magick REQUIRED)
-INCLUDE_DIRECTORIES (${MAGICK++_INCLUDE_DIR} ${MAGICK_INCLUDE_DIR}.)
+INCLUDE_DIRECTORIES (${MAGICK++_INCLUDE_DIR} ${MAGICK_INCLUDE_DIR} . src/ src/include)
 
 ADD_EXECUTABLE(fuckImgBatch
   ${SRC_LIST}
