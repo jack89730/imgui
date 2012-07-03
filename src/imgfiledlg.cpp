@@ -65,7 +65,7 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   convertFormat->setSizePolicy(QSizePolicy::MinimumExpanding,
                                QSizePolicy::Minimum);
 
-  connect(model, SIGNAL(errorAppend(QString xx)), this, SIGNAL(errorAppend(QString xx)));
+  connect(model, SIGNAL(errorAppend(QString)), this, SIGNAL(errorAppend(QString)));
   QVBoxLayout *mainLayout = new QVBoxLayout;
   mainLayout->addWidget(tableView);
   mainLayout->addWidget(addImg);

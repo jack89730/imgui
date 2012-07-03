@@ -8,7 +8,7 @@ MainWindow::MainWindow()
   option = new GeneralOption;
   mainDlg = new ImgFileDlg;
   exceptError = new ReadError;
-  connect(mainDlg, SIGNAL(errorAppend(QString xx)), exceptError, SLOT(appendText(QString text)));
+  connect(mainDlg, SIGNAL(errorAppend(QString)), exceptError, SLOT(appendText(QString)));
 
   Convert = new QPushButton(tr("Convert Now"));
   connect(Convert, SIGNAL(clicked()), this, SLOT(convertNow()));
