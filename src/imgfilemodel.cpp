@@ -2,6 +2,7 @@
 #include <QtGui>
 #include <iostream>
 #include <string>
+#include <QProgressDialog>
 
 using namespace std;
 using namespace Magick;
@@ -158,7 +159,7 @@ void ImgFileModel::unSelectAll()
 void ImgFileModel::removeFile(QModelIndexList indexlist)
 {
   QMutableListIterator<QModelIndex> i(indexlist);
-  QStringList rmFiles;        /* 要删除文件的绝对路径名列表 */
+  QStringList rmFiles;        /* 用户想要删除文件的绝对路径名列表 */
   QList<QFileInfo> rmFileInfoList;
   while (i.hasNext()) {
     i.next();
@@ -192,7 +193,21 @@ void ImgFileModel::convertAll()
   QApplication::setApplicationName("Super Img Batcher");
   QSettings settings;
 
+  int progressRange = imgfilelist.size();
+  QProgressDialog progress;
+  progress.setLabelText(tr("Converting now"));
+  progress.setRange(0, progressRange -1);
+  progress.setModal(true);
+
+  int fileNumbers = 0;
+  
   while (!imgfilelist.isEmpty()) {
+    progress.setValue(++fileNumbers);
+    qApp->processEvents();
+    if (progress.wasCanceled()) {
+      emit errorAppend("Canceld Convert by yourself!!");
+      return;
+    }
     QString imgFile = imgfilelist.at(0).absoluteFilePath();
     try {
       img.read((const char *)imgFile.toLocal8Bit());
@@ -300,6 +315,7 @@ void ImgFileModel::convertAll()
       QString error = QString("%1%2").arg("Caught exception:  ").arg(error_.what());
       emit errorAppend(error);
     }
+    process.cancel();
     imgfilelist.removeAt(0);
     imgfilechecked.remove(imgFile);
     reset();
