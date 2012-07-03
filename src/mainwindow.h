@@ -6,6 +6,7 @@
 #include "imgfiledlg.h"
 #include "generaloption.h"
 #include "resizegrp.h"
+#include "readerror.h"
 
 class QSplitter;
 class QPushButton;
@@ -31,13 +32,14 @@ class MainWindow : public QMainWindow
   ImgFileDlg *mainDlg;
   GeneralOption *option;
   ResizeGrp *resize;
+  ReadError *exceptError;
   QPushButton *Convert;
 
   QHBoxLayout *convertHL;
   QVBoxLayout *leftLayout;
   QVBoxLayout *rightLayout;
   QHBoxLayout *topLayout;
-
+  QVBoxLayout *mainLayout;
 };
   
 #endif /* _MAINWINDOW_H_ */

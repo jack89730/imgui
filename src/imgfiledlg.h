@@ -17,11 +17,14 @@ class QLineEdit;
 class ImgFileDlg : public QWidget
 {
   Q_OBJECT
+
  public:
   ImgFileDlg(QWidget *parent = 0);
  public slots:
   void outputBrowse(void);
   void convertNowDlg();
+ signals:
+  void errorAppend(QString xx);
                          
  private slots:
   void addFiles();

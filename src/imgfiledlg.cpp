@@ -50,10 +50,8 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   convertTo->setBuddy(convertBox);
   QGridLayout *convertLayout = new QGridLayout;
 
-  // QHBoxLayout *convertHL = new QHBoxLayout(this);
   convertLayout->addWidget(convertTo, 1, 0, 1, 1);
   convertLayout->addWidget(convertBox, 1, 1, 1, 2);
-  // convertLayout.addLayout(convertHL, 0, 0);
 
   outputLabel = new QLabel(tr("Output Dir"));
   outputDir = new QLineEdit(QDir::homePath());
@@ -67,6 +65,7 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   convertFormat->setSizePolicy(QSizePolicy::MinimumExpanding,
                                QSizePolicy::Minimum);
 
+  connect(model, SIGNAL(errorAppend(QString xx)), this, SIGNAL(errorAppend(QString xx)));
   QVBoxLayout *mainLayout = new QVBoxLayout;
   mainLayout->addWidget(tableView);
   mainLayout->addWidget(addImg);

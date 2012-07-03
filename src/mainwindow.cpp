@@ -7,6 +7,8 @@ MainWindow::MainWindow()
   resize = new ResizeGrp;
   option = new GeneralOption;
   mainDlg = new ImgFileDlg;
+  exceptError = new ReadError;
+  connect(mainDlg, SIGNAL(errorAppend(QString xx)), exceptError, SLOT(appendText(QString text)));
 
   Convert = new QPushButton(tr("Convert Now"));
   connect(Convert, SIGNAL(clicked()), this, SLOT(convertNow()));
@@ -26,8 +28,12 @@ MainWindow::MainWindow()
   topLayout->addLayout(leftLayout);
   topLayout->addLayout(rightLayout);
   
+  mainLayout = new QVBoxLayout;
+  mainLayout->addLayout(topLayout);
+  mainLayout->addWidget(exceptError);
+  
   QWidget *widget = new QWidget;
-  widget->setLayout(topLayout);
+  widget->setLayout(mainLayout);
   setCentralWidget(widget);
   
   setWindowTitle(tr("Fucking Image Batcher"));
@@ -53,6 +59,7 @@ void MainWindow::readSettings()
   restoreState(settings.value("state").toByteArray());
   settings.remove("resize");
   settings.remove("general");
+  settings.remove("output");
 }
 
 void MainWindow::writeSettings()
@@ -67,6 +74,7 @@ void MainWindow::writeSettings()
   settings.setValue("state", saveState());
   settings.remove("resize");
   settings.remove("general");
+  settings.remove("output");
   settings.endGroup();
 }
 

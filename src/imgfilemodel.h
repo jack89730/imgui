@@ -33,7 +33,9 @@ class ImgFileModel : public QAbstractTableModel
   void removeFile(QModelIndexList indexlist);
   void removeAll();
   void convertAll();
-
+ signals:
+  void errorAppend(QString xx);
+  
  private:
   QStringList modelheader;
   QList<QFileInfo> imgfilelist;

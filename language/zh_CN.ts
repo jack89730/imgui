@@ -239,12 +239,12 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="11"/>
+        <location filename="../src/mainwindow.cpp" line="12"/>
         <source>Convert Now</source>
         <translation>开始转换！</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="33"/>
+        <location filename="../src/mainwindow.cpp" line="38"/>
         <source>Fucking Image Batcher</source>
         <translation></translation>
     </message>

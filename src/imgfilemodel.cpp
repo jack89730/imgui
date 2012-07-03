@@ -297,7 +297,8 @@ void ImgFileModel::convertAll()
       img.write(writeFile);
     }
     catch ( Exception &error_ ) {
-      qDebug() << "Caught exception: " << error_.what() << endl;
+      QString error = QString("%1%2").arg("Caught exception:  ").arg(error_.what());
+      emit errorAppend(error);
     }
     imgfilelist.removeAt(0);
     imgfilechecked.remove(imgFile);
