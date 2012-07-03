@@ -193,21 +193,7 @@ void ImgFileModel::convertAll()
   QApplication::setApplicationName("Super Img Batcher");
   QSettings settings;
 
-  int progressRange = imgfilelist.size();
-  QProgressDialog progress;
-  progress.setLabelText(tr("Converting now"));
-  progress.setRange(0, progressRange -1);
-  progress.setModal(true);
-
-  int fileNumbers = 0;
-  
   while (!imgfilelist.isEmpty()) {
-    progress.setValue(++fileNumbers);
-    qApp->processEvents();
-    if (progress.wasCanceled()) {
-      emit errorAppend("Canceld Convert by yourself!!");
-      return;
-    }
     QString imgFile = imgfilelist.at(0).absoluteFilePath();
     try {
       img.read((const char *)imgFile.toLocal8Bit());
@@ -297,7 +283,7 @@ void ImgFileModel::convertAll()
       }
       settings.endGroup();
       
-      // FIXME: 转换图片文件后的文件夹 img.write()....
+      // FIXME: if except error, then the ImgFile maybe 0 bytes....
       settings.beginGroup("output");
       // TODO: 批量修改文件名
       QString path = QDir::toNativeSeparators(QDir::homePath());
@@ -315,7 +301,6 @@ void ImgFileModel::convertAll()
       QString error = QString("%1%2").arg("Caught exception:  ").arg(error_.what());
       emit errorAppend(error);
     }
-    process.cancel();
     imgfilelist.removeAt(0);
     imgfilechecked.remove(imgFile);
     reset();

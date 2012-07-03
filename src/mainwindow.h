@@ -12,6 +12,7 @@ class QSplitter;
 class QPushButton;
 class QVBoxLayout;
 class QHBoxLayout;
+class QProgressDialog;
 
 class MainWindow : public QMainWindow
 {
@@ -34,6 +35,7 @@ class MainWindow : public QMainWindow
   ResizeGrp *resize;
   ReadError *exceptError;
   QPushButton *Convert;
+  QProgressDialog *progress;
 
   QHBoxLayout *convertHL;
   QVBoxLayout *leftLayout;
