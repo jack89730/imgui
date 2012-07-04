@@ -7,12 +7,12 @@
 #include "generaloption.h"
 #include "resizegrp.h"
 #include "readerror.h"
+#include "convert.h"
 
 class QSplitter;
 class QPushButton;
 class QVBoxLayout;
 class QHBoxLayout;
-class QProgressDialog;
 
 class MainWindow : public QMainWindow
 {
@@ -34,8 +34,8 @@ class MainWindow : public QMainWindow
   GeneralOption *option;
   ResizeGrp *resize;
   ReadError *exceptError;
-  QPushButton *Convert;
-  QProgressDialog *progress;
+  Convert *convert;
+  QPushButton *convertButton;
 
   QHBoxLayout *convertHL;
   QVBoxLayout *leftLayout;

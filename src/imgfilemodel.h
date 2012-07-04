@@ -5,11 +5,6 @@
 #include <QFileInfo>
 #include <QMap>
 #include <QAbstractTableModel>
-#include <Magick++.h>
-#include <string>
-
-using namespace std;
-using namespace Magick;
 
 class ImgFileModel : public QAbstractTableModel
 {
@@ -33,8 +28,9 @@ class ImgFileModel : public QAbstractTableModel
   void removeFile(QModelIndexList indexlist);
   void removeAll();
   void convertAll();
+  void removeConverted(const QString filename);
  signals:
-  void errorAppend(QString xx);
+  void filesList(QList<QString> filelist);
   
  private:
   QStringList modelheader;

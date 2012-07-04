@@ -1,11 +1,6 @@
 #include "imgfilemodel.h"
 #include <QtGui>
-#include <iostream>
-#include <string>
-#include <QProgressDialog>
 
-using namespace std;
-using namespace Magick;
 ImgFileModel::ImgFileModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
@@ -106,7 +101,7 @@ void ImgFileModel::addImgDir(const  QString path, const QStringList namefilters)
 {
   QDir dir(path);
   QList<QFileInfo> newfilelist;
-  newfilelist += dir.entryInfoList(namefilters, QDir::Files | QDir::CaseSensitive);
+  newfilelist += dir.entryInfoList(namefilters, QDir::Files);
   for (int i = 0; i < newfilelist.count(); i++) {
     if (imgfilechecked.find(newfilelist.at(i).absoluteFilePath()) == imgfilechecked.end()) {
       imgfilelist += newfilelist.at(i);
@@ -119,7 +114,7 @@ void ImgFileModel::addImgDirs(const  QString path, const QStringList namefilters
 {
   QDir dir(path);
   QList<QFileInfo> newfilelist;
-  newfilelist += dir.entryInfoList(namefilters, QDir::Files | QDir::CaseSensitive);
+  newfilelist += dir.entryInfoList(namefilters, QDir::Files);
   for (int i = 0; i < newfilelist.count(); i++) {
     if (imgfilechecked.find(newfilelist.at(i).absoluteFilePath()) == imgfilechecked.end()) {
       imgfilelist += newfilelist.at(i);
@@ -128,8 +123,8 @@ void ImgFileModel::addImgDirs(const  QString path, const QStringList namefilters
   }
 
   QStringList dirs = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot | QDir::Hidden) ;
-  for (int i = 0; i < dirs.count() && dirs.at(i) != QString() ; i++) {
-    QString absolutePath(path + QDir::separator() + dirs.at(i));
+  for (int i = 0; i < dirs.count() ; i++) {
+    QString absolutePath(path + '/' + dirs.at(i));
     addImgDirs(absolutePath, namefilters);
   }
   reset();
@@ -186,124 +181,23 @@ void ImgFileModel::removeAll()
 
 void ImgFileModel::convertAll()
 {
-  Image img;
+  QList<QString> convertFiles;
 
-  QApplication::setOrganizationName("Sd44 Soft");
-  QApplication::setOrganizationDomain("sd44.is-programmer.com");
-  QApplication::setApplicationName("Super Img Batcher");
-  QSettings settings;
-
-  while (!imgfilelist.isEmpty()) {
-    QString imgFile = imgfilelist.at(0).absoluteFilePath();
-    try {
-      img.read((const char *)imgFile.toLocal8Bit());
-
-      if (int filterType = settings.value("resize/filterBox").toInt()) {
-        switch (filterType) {
-          case 1:
-            img.filterType(LanczosFilter);
-          case 2:
-            img.filterType(MitchellFilter);
-        }
-      }
-      if (settings.value("resize/geometry").isValid()) {
-        std::string tmpgeo = settings.value("resize/geometry").toString().toStdString();
-        img.zoom(tmpgeo);
-      }
-
-      settings.beginGroup("general");
-      if (settings.value("quality").toBool()) {
-        img.quality(settings.value("qualityBox").toInt());
-      }
-      Blob exifBlob;
-      if (settings.value("eraseProfile").toBool()) {
-        if (settings.value("keepExif").toBool()) {
-          img.profile("EXIF", exifBlob);
-        }
-        img.profile("*", Blob());
-        img.profile("EXIF", exifBlob);
-      }
-      if (settings.value("reduceNoise").toBool()) {
-        img.reduceNoise();
-      }
-      if (settings.value("reduceSpeckleNoise").toBool()) {
-        img.despeckle();
-      }
-      if (settings.value("enhance").toBool()) {
-        img.enhance();
-      }
-      if (settings.value("normalize").toBool()) {
-        img.normalize();
-      }
-      if (settings.value("trim").toBool()) {
-        img.trim();
-      }
-      if (settings.value("edge").toBool()) {
-        img.edge();
-      }
-      if (settings.value("emboss").toBool()) {
-        img.emboss();
-      }
-      if (settings.value("equalize").toBool()) {
-        img.equalize();
-      }
-      if (settings.value("monoChrome").toBool()) {
-        img.quantizeColorSpace(GRAYColorspace);
-        img.quantizeColors(2);
-        img.quantize();
-        img.normalize();
-      }
-      if (settings.value("addNoise").toBool()) {
-        int noise = settings.value("noiseType").toInt();
-        switch (noise) {
-          case 0:
-            img.addNoise(UniformNoise);
-          case 1:
-            img.addNoise(GaussianNoise);
-          case 2:
-            img.addNoise(MultiplicativeGaussianNoise);
-          case 3:
-            img.addNoise(ImpulseNoise);
-          case 4:
-            img.addNoise(LaplacianNoise);
-          case 5:
-            img.addNoise(PoissonNoise);
-          default:
-            img.addNoise(RandomNoise);
-        }
-      }
-      if (settings.value("sharpen").toBool()) {
-        img.sharpen(settings.value("sharpenRadius").toDouble());
-      }
-      if (settings.value("charcoal").toBool()) {
-        img.charcoal(settings.value("charcoalRadius").toDouble());
-      }
-      if (settings.value("oilPaint").toBool()) {
-        img.oilPaint(settings.value("oilRadius").toDouble());
-      }
-      settings.endGroup();
-      
-      // FIXME: if except error, then the ImgFile maybe 0 bytes....
-      settings.beginGroup("output");
-      // TODO: 批量修改文件名
-      QString path = QDir::toNativeSeparators(QDir::homePath());
-      if (settings.value("outputDir").isValid()) {
-        path = settings.value("outputDir").toString() + "/";
-      }
-      QString filename = imgfilelist.at(0).completeBaseName();
-      filename += "." + settings.value("format", "fuck").toString();
-      settings.endGroup();
-      QString to8bit(path +filename);
-      std::string writeFile = (const char *)to8bit.toLocal8Bit();
-      img.write(writeFile);
-    }
-    catch ( Exception &error_ ) {
-      QString error = QString("%1%2").arg("Caught exception:  ").arg(error_.what());
-      emit errorAppend(error);
-    }
-    imgfilelist.removeAt(0);
-    imgfilechecked.remove(imgFile);
-    reset();
-  }
+  QMapIterator<QString, bool> i(imgfilechecked);
+  while (i.hasNext()) {
+    i.next();
+    if (i.value())
+      convertFiles += i.key();
+ }
+  emit filesList(convertFiles);
 }
 
+void ImgFileModel::removeConverted(const QString filename)
+{
+  imgfilechecked.remove(filename);
+  for (int i = 0; i < imgfilelist.size(); i++)
+    if (filename == imgfilelist.at(i).absoluteFilePath()) {
+      imgfilelist.removeAt(i);
+      break;
+    }
+}

@@ -23,9 +23,11 @@ class ImgFileDlg : public QWidget
  public slots:
   void outputBrowse(void);
   void convertNowDlg();
+
  signals:
-  void errorAppend(QString xx);
-                         
+  void filesList(QList<QString> filelist);
+  void removeConverted(QString imgFile);
+  
  private slots:
   void addFiles();
   void addDirs();

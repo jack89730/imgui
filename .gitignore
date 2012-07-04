@@ -12,5 +12,8 @@
 *.a
 
 # Compiled tags
-G*
-T*
+GTAGS
+GPATH
+GRTAGS
+GSYMS
+

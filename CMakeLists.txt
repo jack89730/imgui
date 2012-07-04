@@ -16,6 +16,7 @@ SET(SRC_LIST
   src/mainwindow.cpp
   src/resizegrp.cpp
   src/readerror.cpp
+  src/convert.cpp
   )
 
 SET(MOC_HDLIST
@@ -24,6 +25,7 @@ SET(MOC_HDLIST
   src/mainwindow.h
   src/resizegrp.h
   src/readerror.h
+  src/convert.h
   )
 
 FIND_PACKAGE(Qt4 REQUIRED)

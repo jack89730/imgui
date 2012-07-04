@@ -5,6 +5,10 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   : QWidget(parent)
 {
   model = new ImgFileModel;
+  connect(this, SIGNAL(removeConverted(QString)),
+          model, SLOT(removeConverted(QString)));
+  connect(model, SIGNAL(filesList(QList<QString>)), this, SIGNAL(filesList(QList<QString>)));
+
   tableView = new QTableView;
   tableView->horizontalHeader()->setStretchLastSection(true);
   tableView->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
@@ -65,7 +69,6 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   convertFormat->setSizePolicy(QSizePolicy::MinimumExpanding,
                                QSizePolicy::Minimum);
 
-  connect(model, SIGNAL(errorAppend(QString)), this, SIGNAL(errorAppend(QString)));
   QVBoxLayout *mainLayout = new QVBoxLayout;
   mainLayout->addWidget(tableView);
   mainLayout->addWidget(addImg);
@@ -80,7 +83,7 @@ void ImgFileDlg::addFiles()
 
   QStringList fileNames =
     QFileDialog::getOpenFileNames(this, tr("Add Images"),
-                                  path, loadformat.readFilter);
+                                  path, loadformat.readFilter); //FIXME:LINUX下只支持全大写或全小写文件名。
   if (!fileNames.isEmpty()) {
     model->addImgFile(fileNames);
   }

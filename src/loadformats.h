@@ -11,7 +11,7 @@ class LoadFormats
 {
  public:
     LoadFormats();
-    QString readFilter;
+    QString readFilter;     //used by ImgFileDlg::addFiles();
     QStringList readFmts;
     QStringList writeFmts;
 };

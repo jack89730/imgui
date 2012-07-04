@@ -8,13 +8,18 @@ MainWindow::MainWindow()
   option = new GeneralOption;
   mainDlg = new ImgFileDlg;
   exceptError = new ReadError;
-  connect(mainDlg, SIGNAL(errorAppend(QString)), exceptError, SLOT(appendText(QString)));
+  convert = new Convert;
+  connect(convert, SIGNAL(errorAppend(QString)), exceptError, SLOT(appendText(QString)));
+  connect(mainDlg, SIGNAL(filesList(QList<QString>)),
+          convert, SLOT(convertFilesList(QList<QString>)));
+  connect(convert, SIGNAL(removeConverted(QString)),
+          mainDlg, SIGNAL(removeConverted(QString)));
 
-  Convert = new QPushButton(tr("Convert Now"));
-  connect(Convert, SIGNAL(clicked()), this, SLOT(convertNow()));
+  convertButton = new QPushButton(tr("Convert Now"));
+  connect(convertButton, SIGNAL(clicked()), this, SLOT(convertNow()));
   convertHL = new QHBoxLayout;
   convertHL->addStretch();
-  convertHL->addWidget(Convert);
+  convertHL->addWidget(convertButton);
 
   leftLayout = new QVBoxLayout;
   leftLayout->addWidget(mainDlg);
