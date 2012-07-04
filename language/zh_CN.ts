@@ -2,6 +2,26 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="zh_CN">
 <context>
+    <name>Convert</name>
+    <message>
+        <location filename="../src/convert.cpp" line="29"/>
+        <source>Converting now</source>
+        <translation>开始转换</translation>
+    </message>
+    <message>
+        <location filename="../src/convert.cpp" line="159"/>
+        <source>My Application</source>
+        <translation>子墨批量图像处理</translation>
+    </message>
+    <message>
+        <location filename="../src/convert.cpp" line="160"/>
+        <source>The writeto File is existed, Do you want to override it.
+If you selecet NO, 
+ the writeto File will autorenamed xxx01.format</source>
+        <translation>要写入的文件已存在，你是否想覆盖它？如果你选择NO，要写入的文件会自动更名为 xxx-01.format之类的文件。</translation>
+    </message>
+</context>
+<context>
     <name>GeneralOption</name>
     <message>
         <location filename="../src/generaloption.cpp" line="7"/>
@@ -128,80 +148,80 @@
 <context>
     <name>ImgFileDlg</name>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="21"/>
+        <location filename="../src/imgfiledlg.cpp" line="25"/>
         <source>Add Imgs</source>
         <translation>添加图像</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="22"/>
+        <location filename="../src/imgfiledlg.cpp" line="26"/>
         <source>Add Folder</source>
         <translation>添加文件夹</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="23"/>
+        <location filename="../src/imgfiledlg.cpp" line="27"/>
         <source>Select All</source>
         <translation>选择所有</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="24"/>
+        <location filename="../src/imgfiledlg.cpp" line="28"/>
         <source>Unselect All</source>
         <translation>全部不选</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="25"/>
+        <location filename="../src/imgfiledlg.cpp" line="29"/>
         <source>Remove</source>
         <translation>删除选择</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="26"/>
+        <location filename="../src/imgfiledlg.cpp" line="30"/>
         <source>Remove All</source>
         <translation>删除所有</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="44"/>
-        <location filename="../src/imgfiledlg.cpp" line="49"/>
+        <location filename="../src/imgfiledlg.cpp" line="48"/>
+        <location filename="../src/imgfiledlg.cpp" line="53"/>
         <source>Convert Format</source>
         <translation>转换为格式</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="58"/>
+        <location filename="../src/imgfiledlg.cpp" line="60"/>
         <source>Output Dir</source>
         <translation>输出文件夹</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="60"/>
+        <location filename="../src/imgfiledlg.cpp" line="62"/>
         <source>Browse</source>
         <translation>浏览</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="83"/>
+        <location filename="../src/imgfiledlg.cpp" line="85"/>
         <source>Add Images</source>
         <translation>添加文件</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="94"/>
-        <location filename="../src/imgfiledlg.cpp" line="118"/>
+        <location filename="../src/imgfiledlg.cpp" line="96"/>
+        <location filename="../src/imgfiledlg.cpp" line="120"/>
         <source>Add Directory</source>
         <translation>添加文件夹</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="97"/>
+        <location filename="../src/imgfiledlg.cpp" line="99"/>
         <source>contant SubDir?</source>
         <translation>是否包含子文件夹</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="98"/>
+        <location filename="../src/imgfiledlg.cpp" line="100"/>
         <source>Do you want add files in subdirectory recursively ?
 </source>
         <translation>是否递归添加子文件夹中的图像文件</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="133"/>
+        <location filename="../src/imgfiledlg.cpp" line="135"/>
         <source>The output Dir isn&apos;t Exists</source>
         <translation>输出文件夹不存在</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="134"/>
+        <location filename="../src/imgfiledlg.cpp" line="136"/>
         <source>Do you want auto Create this Dir 
 </source>
         <comment>If you Not, images will not to Convert</comment>
@@ -211,27 +231,27 @@
 <context>
     <name>ImgFileModel</name>
     <message>
-        <location filename="../src/imgfilemodel.cpp" line="11"/>
+        <location filename="../src/imgfilemodel.cpp" line="7"/>
         <source>Check</source>
         <translation>选中</translation>
     </message>
     <message>
-        <location filename="../src/imgfilemodel.cpp" line="11"/>
+        <location filename="../src/imgfilemodel.cpp" line="7"/>
         <source>Filename</source>
         <translation>文件名</translation>
     </message>
     <message>
-        <location filename="../src/imgfilemodel.cpp" line="11"/>
+        <location filename="../src/imgfilemodel.cpp" line="7"/>
         <source>FileSize</source>
         <translation>文件大小</translation>
     </message>
     <message>
-        <location filename="../src/imgfilemodel.cpp" line="11"/>
+        <location filename="../src/imgfilemodel.cpp" line="7"/>
         <source>FileType</source>
         <translation>文件格式</translation>
     </message>
     <message>
-        <location filename="../src/imgfilemodel.cpp" line="11"/>
+        <location filename="../src/imgfilemodel.cpp" line="7"/>
         <source>AbsolutePath</source>
         <translation>绝对路径</translation>
     </message>
@@ -239,14 +259,22 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="12"/>
+        <location filename="../src/mainwindow.cpp" line="18"/>
         <source>Convert Now</source>
         <translation>开始转换！</translation>
     </message>
     <message>
-        <location filename="../src/mainwindow.cpp" line="38"/>
+        <location filename="../src/mainwindow.cpp" line="44"/>
         <source>Fucking Image Batcher</source>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>ReadError</name>
+    <message>
+        <location filename="../src/readerror.cpp" line="13"/>
+        <source>Except Output</source>
+        <translation>异常输出</translation>
     </message>
 </context>
 <context>

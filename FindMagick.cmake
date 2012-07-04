@@ -21,6 +21,7 @@ SET(MAGICK++_FOUND "NO" )
 FIND_PATH( MAGICK_INCLUDE_DIR magick.h
   /usr/include/GraphicsMagick/magick
   "$ENV{MAGICK_LOCATION}/magick"
+  "$ENV{MAGICK_LOCATION}/include"
   "$ENV{MAGICK_LOCATION}/include/GraphicsMagick"
   "$ENV{MAGICK_LOCATION}/include/magick"
   "$ENV{MAGICK_HOME}/include/magick"
@@ -34,7 +35,6 @@ FIND_PATH( MAGICK_INCLUDE_DIR magick.h
   )
 
 FIND_PATH( MAGICK++_INCLUDE_DIR Magick++.h
-  /usr/include/GraphicsMagick
   "$ENV{MAGICK++_LOCATION}/Magick++"
   "$ENV{MAGICK++_LOCATION}/include/"
   "$ENV{MAGICK_LOCATION}/Magick++"
@@ -42,6 +42,7 @@ FIND_PATH( MAGICK++_INCLUDE_DIR Magick++.h
   "$ENV{MAGICK_LOCATION}/include/GraphicsMagick"
   "$ENV{MAGICK_LOCATION}/include/"
   "$ENV{MAGICK_HOME}/include/"
+  /usr/include/GraphicsMagick
   /usr/include/Magick++
   /usr/include/
   /usr/local/include
@@ -55,6 +56,9 @@ FIND_LIBRARY( Magick GraphicsMagick
   "$ENV{MAGICK_LOCATION}/magick/.libs"
   "$ENV{MAGICK_LOCATION}/lib"
   "$ENV{MAGICK_HOME}/lib"
+  /usr/lib64
+  /usr/local/lib64
+  /opt/local/lib64
   /usr/lib
   /usr/local/lib
   /opt/local/lib
@@ -69,6 +73,9 @@ FIND_LIBRARY( Magick++ GraphicsMagick++
   "$ENV{MAGICK++_LOCATION}/lib"
   "$ENV{MAGICK_LOCATION}/lib"
   "$ENV{MAGICK_HOME}/lib"
+  /opt/local/lib64
+  /usr/lib64
+  /usr/local/lib64
   /opt/local/lib
   /usr/lib
   /usr/local/lib
