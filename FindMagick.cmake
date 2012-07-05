@@ -18,7 +18,11 @@
 SET(MAGICK_FOUND   "NO" )
 SET(MAGICK++_FOUND "NO" )
 
-FIND_PATH( MAGICK_INCLUDE_DIR magick.h
+FIND_PATH( MAGICK_INCLUDE_DIR
+  NAMES magick.h
+  PATHS
+  "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GraphicsMagick\\Current;BinPath]/include"
+  "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GraphicsMagick\\Current;BinPath]/include/magick"
   /usr/include/GraphicsMagick/magick
   "$ENV{MAGICK_LOCATION}/magick"
   "$ENV{MAGICK_LOCATION}/include"
@@ -34,7 +38,10 @@ FIND_PATH( MAGICK_INCLUDE_DIR magick.h
   /opt/local/include/GraphicsMagick
   )
 
-FIND_PATH( MAGICK++_INCLUDE_DIR Magick++.h
+FIND_PATH( MAGICK++_INCLUDE_DIR
+  NAMES Magick++.h
+  PATHS
+  "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GraphicsMagick\\Current;BinPath]/include"
   "$ENV{MAGICK++_LOCATION}/Magick++"
   "$ENV{MAGICK++_LOCATION}/include/"
   "$ENV{MAGICK_LOCATION}/Magick++"
@@ -51,8 +58,10 @@ FIND_PATH( MAGICK++_INCLUDE_DIR Magick++.h
   /opt/local/include/GraphicsMagick
   )
 
-FIND_LIBRARY( Magick GraphicsMagick
+FIND_LIBRARY( Magick
+  NAMES GraphicsMagick CORE_RL_magick_
   PATHS 
+  "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GraphicsMagick\\Current;BinPath]/lib"
   "$ENV{MAGICK_LOCATION}/magick/.libs"
   "$ENV{MAGICK_LOCATION}/lib"
   "$ENV{MAGICK_HOME}/lib"
@@ -63,11 +72,13 @@ FIND_LIBRARY( Magick GraphicsMagick
   /usr/local/lib
   /opt/local/lib
   DOC   "GraphicsMagick magic library"
-)
+  )
 
 
-FIND_LIBRARY( Magick++ GraphicsMagick++
+FIND_LIBRARY( Magick++
+  NAMES GraphicsMagick++ CORE_RL_Magick++
   PATHS 
+  "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GraphicsMagick\\Current;BinPath]/lib"
   "$ENV{MAGICK++_LOCATION}/.libs"
   "$ENV{MAGICK_LOCATION}/.libs"
   "$ENV{MAGICK++_LOCATION}/lib"
@@ -79,8 +90,8 @@ FIND_LIBRARY( Magick++ GraphicsMagick++
   /opt/local/lib
   /usr/lib
   /usr/local/lib
-   DOC   "GraphicsMagick Magick++ library"
-)
+  DOC   "GraphicsMagick Magick++ library"
+  )
 
 
 SET(MAGICK_LIBRARIES ${Magick} )
@@ -107,7 +118,7 @@ IF(NOT MAGICK_FOUND)
   IF(NOT Magick_FIND_QUIETLY)
     IF(Magick_FIND_REQUIRED)
       MESSAGE(FATAL_ERROR
-              "GraphicsMagick required, please specify it's location with MAGICK_HOME, MAGICK_LOCATION or MAGICK++_LOCATION")
+        "GraphicsMagick required, please specify it's location with MAGICK_HOME, MAGICK_LOCATION or MAGICK++_LOCATION")
     ELSE(Magick_FIND_REQUIRED)
       MESSAGE(STATUS "GraphicsMagick was not found.")
     ENDIF(Magick_FIND_REQUIRED)
