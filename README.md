@@ -12,7 +12,7 @@ API，采用OpenMP多线程库处理图片，并支持近百种图片格式，�
 感谢Converseen的作者.faster3ck@gmail.com
 感谢Q3ACN老坛友们从我开始学编程一直以来的支持，By Quakers， For Quakers！  
 技术方面，感谢 irc://irc.freenode.net 中 #kde-cn 聊天室的大牛们， 
-尤其感谢kde-cn中**csslayer**, **yuyichao**大牛的鼎力相助 -__-。
+尤其感谢kde-cn中**csslayer**, **yuyichao**, **wanggjGhost** 等大牛的鼎力相助 -__-。
 
 最感谢的，还是爸爸、妈妈、老婆、小墨墨。。。。聚少离多，相聚时也把大部份放在了编程上。。。
 
