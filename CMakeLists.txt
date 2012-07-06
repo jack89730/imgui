@@ -33,7 +33,6 @@ SET(MOC_HDLIST
   src/resizegrp.h
   src/readerror.h
   src/convert.h
-  resource/
   )
 
 FIND_PACKAGE(Qt4 REQUIRED)

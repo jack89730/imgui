@@ -91,6 +91,14 @@ void ResizeGrp::fixedPropo(int checked)
     else
       widthEdit->setValue(heightEdit->value());
   }
+  if (percent->isChecked()) {
+    onlySmaller->setDisabled(true);
+    onlyGreater->setDisabled(true);
+  }
+  else {
+    onlySmaller->setEnabled(true);
+    onlyGreater->setEnabled(true);
+  }
 }
 
 void ResizeGrp::keepRatio(int size)

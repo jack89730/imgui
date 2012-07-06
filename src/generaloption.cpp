@@ -65,8 +65,8 @@ GeneralOption::GeneralOption(QWidget *parent)
   // groupGrid->addLayout(sharpenSigmaForm, 5, 2);
 
   trim = new QCheckBox(tr("Trim Edge BackGround Color"));
-  edge = new QCheckBox(tr("Hightlight Edge"));
-  emboss = new QCheckBox(tr("3D Hightlight Edge"));
+  edge = new QCheckBox(tr("Highlight Edge"));
+  emboss = new QCheckBox(tr("3D Highlight Edge"));
   groupGrid->addWidget(trim, 6, 0);
   groupGrid->addWidget(edge, 6, 1);
   groupGrid->addWidget(emboss, 6, 2);
@@ -104,7 +104,34 @@ GeneralOption::GeneralOption(QWidget *parent)
   groupGrid->setSizeConstraint(QLayout::SetMinAndMaxSize);
   generalOption->setLayout(groupGrid);
   generalOption->adjustSize();
+  setTips();
+}
 
+void GeneralOption::setTips(void)
+{
+  qualityBox->setToolTip(tr("PNG/JPG/MIFF ONLY, Compress Quality"));
+  eraseProfile->setToolTip(tr("Remove All Profile"));
+  keepExif->setToolTip(tr("Keep the Digtal Photo EXIF"));
+  // QCheckBox autoRorate; Fixme:Todo
+  reduceNoise->setToolTip(tr("Reduce Noise"));
+  reduceSpeckleNoise->setToolTip(tr("Reduce The Speckle Noise"));
+  enhance->setToolTip(tr("Enhance The Image")); // minimize noise
+  normalize->setToolTip(tr("Normalize Image")); 
+  trim->setToolTip(tr("Trim edges that are the background color"));
+  edge->setToolTip(tr("Highlight edge"));       // Highlight img edge
+  emboss->setToolTip(tr("Highlight edges with 3D effect"));     //3D highlight edge
+  equalize->setToolTip(tr("histogram equalization"));   // histogram equalize
+  monoChrome->setToolTip(tr("Transform image to black and white")); //black/white pic,Must use +dither
+                         //-colorspace gray -colors 2
+  
+  addNoise->setToolTip(tr("Add NoiseType"));
+
+  sharpenRadius->setToolTip(tr("radius of the Gaussian, in pixels")); //Gaussian radius
+  // QDoubleSpinBox *sharpenSigma; //Laplacian deviation
+  charcoalRadius->setToolTip(tr("radius of the Gaussian, in pixels"));
+  // QDoubleSpinBox *charcoalSigma;
+  oilPaint->setToolTip(tr("oilPaint Effect"));
+  oilRadius->setToolTip(tr("radius of the Gaussian"));
 }
 
 void GeneralOption::optionSettings(void)

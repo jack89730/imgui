@@ -20,6 +20,7 @@ class ImgFileDlg : public QWidget
 
  public:
   ImgFileDlg(QWidget *parent = 0);
+  void setTips(void);
  public slots:
   void outputBrowse(void);
   void convertNowDlg();

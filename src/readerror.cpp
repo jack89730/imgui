@@ -7,6 +7,7 @@ ReadError::ReadError(QWidget *parent)
   errorText = new QTextEdit;
   errorText->setReadOnly(true);
   errorText->setMaximumHeight(100);
+  errorText->setToolTip(tr("Except Error is displayed here "));
   QVBoxLayout *errorLayout = new QVBoxLayout;
   errorLayout->addWidget(errorText);
 

@@ -40,6 +40,7 @@ If you selecet NO,
     </message>
     <message>
         <location filename="../src/generaloption.cpp" line="26"/>
+        <location filename="../src/generaloption.cpp" line="113"/>
         <source>Remove All Profile</source>
         <translation>删除所有PROFILE</translation>
     </message>
@@ -55,6 +56,7 @@ If you selecet NO,
     </message>
     <message>
         <location filename="../src/generaloption.cpp" line="33"/>
+        <location filename="../src/generaloption.cpp" line="116"/>
         <source>Reduce Noise</source>
         <translation>降噪</translation>
     </message>
@@ -116,13 +118,92 @@ If you selecet NO,
     </message>
     <message>
         <location filename="../src/generaloption.cpp" line="68"/>
-        <source>Hightlight Edge</source>
+        <source>Highlight Edge</source>
         <translation>高亮图像边缘</translation>
     </message>
     <message>
         <location filename="../src/generaloption.cpp" line="69"/>
+        <source>3D Highlight Edge</source>
+        <translation>3D效果高亮边缘</translation>
+    </message>
+    <message>
+        <location filename="../src/generaloption.cpp" line="112"/>
+        <source>PNG/JPG/MIFF ONLY, Compress Quality</source>
+        <translation>压缩级别，只对JPG/PNG/MIFF输出图像文件有效</translation>
+    </message>
+    <message>
+        <location filename="../src/generaloption.cpp" line="114"/>
+        <source>Keep the Digtal Photo EXIF</source>
+        <translation>保持数码照片EXIF信息</translation>
+    </message>
+    <message>
+        <location filename="../src/generaloption.cpp" line="117"/>
+        <source>Reduce The Speckle Noise</source>
+        <translation>亮点降噪</translation>
+    </message>
+    <message>
+        <location filename="../src/generaloption.cpp" line="118"/>
+        <source>Enhance The Image</source>
+        <translation>图像增强</translation>
+    </message>
+    <message>
+        <location filename="../src/generaloption.cpp" line="119"/>
+        <source>Normalize Image</source>
+        <translation>图像归一化</translation>
+    </message>
+    <message>
+        <location filename="../src/generaloption.cpp" line="120"/>
+        <source>Trim edges that are the background color</source>
+        <translation>去除和背景色一样的边缘色</translation>
+    </message>
+    <message>
+        <location filename="../src/generaloption.cpp" line="121"/>
+        <source>Highlight edge</source>
+        <translation>高亮图像边缘</translation>
+    </message>
+    <message>
+        <location filename="../src/generaloption.cpp" line="122"/>
+        <source>Highlight edges with 3D effect</source>
+        <translation>3D效果高亮图像边缘</translation>
+    </message>
+    <message>
+        <location filename="../src/generaloption.cpp" line="123"/>
+        <source>histogram equalization</source>
+        <translation>直方图均衡化</translation>
+    </message>
+    <message>
+        <location filename="../src/generaloption.cpp" line="124"/>
+        <source>Transform image to black and white</source>
+        <translation>转换为黑白图片</translation>
+    </message>
+    <message>
+        <location filename="../src/generaloption.cpp" line="127"/>
+        <source>Add NoiseType</source>
+        <translation>添加噪点/噪声</translation>
+    </message>
+    <message>
+        <location filename="../src/generaloption.cpp" line="129"/>
+        <location filename="../src/generaloption.cpp" line="131"/>
+        <source>radius of the Gaussian, in pixels</source>
+        <translation>高斯半径，像素值表示</translation>
+    </message>
+    <message>
+        <location filename="../src/generaloption.cpp" line="133"/>
+        <source>oilPaint Effect</source>
+        <translation>油画效果</translation>
+    </message>
+    <message>
+        <location filename="../src/generaloption.cpp" line="134"/>
+        <source>radius of the Gaussian</source>
+        <translation>高斯半径，像素值表示</translation>
+    </message>
+    <message>
+        <source>Hightlight Edge</source>
+        <translation type="obsolete">高亮图像边缘</translation>
+    </message>
+    <message>
         <source>3D Hightlight Edge</source>
-        <translation>3D高亮边缘</translation>
+        <translation type="obsolete">3D高亮边缘</translation>
     </message>
     <message>
         <location filename="../src/generaloption.cpp" line="74"/>
@@ -194,34 +275,75 @@ If you selecet NO,
         <translation>浏览</translation>
     </message>
     <message>
+        <location filename="../src/imgfiledlg.cpp" line="84"/>
+        <source>Convert To the Format Speced By right box</source>
+        <translation>转换为右边BOX所指定的格式</translation>
+    </message>
+    <message>
         <location filename="../src/imgfiledlg.cpp" line="85"/>
+        <source>in the right, Choose Output Dir</source>
+        <translation>在右边，选择输出文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/imgfiledlg.cpp" line="87"/>
+        <location filename="../src/imgfiledlg.cpp" line="88"/>
+        <source>Add Image Files</source>
+        <translation>添加图片文件</translation>
+    </message>
+    <message>
+        <location filename="../src/imgfiledlg.cpp" line="89"/>
+        <source>Add Image Folder, Can Rescuse Subdir</source>
+        <translation>添加图片文件夹，可递归</translation>
+    </message>
+    <message>
+        <location filename="../src/imgfiledlg.cpp" line="90"/>
+        <source>Check All</source>
+        <translation>CHECK全部</translation>
+    </message>
+    <message>
+        <location filename="../src/imgfiledlg.cpp" line="91"/>
+        <source>UnCheck All</source>
+        <translation>Uncheck全部</translation>
+    </message>
+    <message>
+        <location filename="../src/imgfiledlg.cpp" line="92"/>
+        <source>Remove The Images by Selected Lines</source>
+        <translation>删除选中的高亮的行</translation>
+    </message>
+    <message>
+        <location filename="../src/imgfiledlg.cpp" line="93"/>
+        <source>Remove All Images From Table</source>
+        <translation>从表中移除所有图像文件</translation>
+    </message>
+    <message>
+        <location filename="../src/imgfiledlg.cpp" line="101"/>
         <source>Add Images</source>
         <translation>添加文件</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="96"/>
-        <location filename="../src/imgfiledlg.cpp" line="120"/>
+        <location filename="../src/imgfiledlg.cpp" line="112"/>
+        <location filename="../src/imgfiledlg.cpp" line="136"/>
         <source>Add Directory</source>
         <translation>添加文件夹</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="99"/>
+        <location filename="../src/imgfiledlg.cpp" line="115"/>
         <source>contant SubDir?</source>
         <translation>是否包含子文件夹</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="100"/>
+        <location filename="../src/imgfiledlg.cpp" line="116"/>
         <source>Do you want add files in subdirectory recursively ?
 </source>
         <translation>是否递归添加子文件夹中的图像文件</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="135"/>
+        <location filename="../src/imgfiledlg.cpp" line="151"/>
         <source>The output Dir isn&apos;t Exists</source>
         <translation>输出文件夹不存在</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="136"/>
+        <location filename="../src/imgfiledlg.cpp" line="152"/>
         <source>Do you want auto Create this Dir 
 </source>
         <comment>If you Not, images will not to Convert</comment>
@@ -272,7 +394,12 @@ If you selecet NO,
 <context>
     <name>ReadError</name>
     <message>
-        <location filename="../src/readerror.cpp" line="13"/>
+        <location filename="../src/readerror.cpp" line="10"/>
+        <source>Except Error is displayed here </source>
+        <translation>转换过程中的异常错误信息输出窗口</translation>
+    </message>
+    <message>
+        <location filename="../src/readerror.cpp" line="14"/>
         <source>Except Output</source>
         <translation>异常输出</translation>
     </message>

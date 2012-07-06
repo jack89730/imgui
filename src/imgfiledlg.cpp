@@ -75,6 +75,22 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   mainLayout->addWidget(convertFormat);
   mainLayout->setStretchFactor(tableView, 1);
   setLayout(mainLayout);
+  setTips();
+}
+
+void ImgFileDlg::setTips(void)
+{
+
+  convertTo->setToolTip(tr("Convert To the Format Speced By right box"));
+  outputLabel->setToolTip(tr("in the right, Choose Output Dir"));
+ 
+  addImg->setToolTip(tr("Add Image Files"));
+  addImgFile->setToolTip(tr("Add Image Files"));
+  addImgFolder->setToolTip(tr("Add Image Folder, Can Rescuse Subdir"));
+  selectAll->setToolTip(tr("Check All"));
+  unSelectAll->setToolTip(tr("UnCheck All"));
+  removeImg->setToolTip(tr("Remove The Images by Selected Lines"));
+  removeAll->setToolTip(tr("Remove All Images From Table"));
 }
 
 void ImgFileDlg::addFiles()
