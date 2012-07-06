@@ -49,16 +49,15 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   convertBox = new QComboBox(this);
   convertBox->addItems(loadformat.writeFmts);
   convertBox->setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLength);
-  convertBox->setCurrentIndex(0);
   convertTo = new QLabel(tr("Convert Format"));
   convertTo->setBuddy(convertBox);
-  QGridLayout *convertLayout = new QGridLayout;
 
+  QGridLayout *convertLayout = new QGridLayout;
   convertLayout->addWidget(convertTo, 1, 0, 1, 1);
   convertLayout->addWidget(convertBox, 1, 1, 1, 2);
 
   outputLabel = new QLabel(tr("Output Dir"));
-  outputDir = new QLineEdit(QDir::homePath());
+  outputDir = new QLineEdit;
   browseButton = new QPushButton(tr("Browse"));
   connect(browseButton, SIGNAL(clicked()), this, SLOT(outputBrowse()));
   convertLayout->addWidget(outputLabel, 0, 0, 1, 1);
@@ -68,6 +67,18 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   convertFormat->setLayout(convertLayout);
   convertFormat->setSizePolicy(QSizePolicy::MinimumExpanding,
                                QSizePolicy::Minimum);
+  connect(convertBox, SIGNAL(currentIndexChanged(int)), this, SLOT(saveFormatSet(int)));
+  connect(outputDir, SIGNAL(textChanged(const QString &)), this, SLOT(saveOutDir(const QString &)));
+
+  QApplication::setOrganizationName("Sd44 Soft");
+  QApplication::setOrganizationDomain("sd44.is-programmer.com");
+  QApplication::setApplicationName("Super Img Batcher");
+  QSettings settings;
+
+  int curIndex = settings.value("mainWindow/formatIndex", 20).toInt();
+  convertBox->setCurrentIndex(curIndex);
+  QString xx = settings.value("mainWindow/outDir", QDir::homePath()).toString();
+  outputDir->setText(xx);
 
   QVBoxLayout *mainLayout = new QVBoxLayout;
   mainLayout->addWidget(tableView);
@@ -165,3 +176,26 @@ void ImgFileDlg::convertNowDlg()
   model->convertAll();
 }
   
+void ImgFileDlg::saveFormatSet(int index)
+{
+  QApplication::setOrganizationName("Sd44 Soft");
+  QApplication::setOrganizationDomain("sd44.is-programmer.com");
+  QApplication::setApplicationName("Super Img Batcher");
+  QSettings settings;
+
+  settings.beginGroup("mainWindow");
+  settings.setValue("formatIndex", index);
+  settings.endGroup();
+}
+
+void ImgFileDlg::saveOutDir(const QString &dir)
+{
+  QApplication::setOrganizationName("Sd44 Soft");
+  QApplication::setOrganizationDomain("sd44.is-programmer.com");
+  QApplication::setApplicationName("Super Img Batcher");
+  QSettings settings;
+
+  settings.beginGroup("mainWindow");
+  settings.setValue("outDir", dir);
+  settings.endGroup();
+}

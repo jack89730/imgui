@@ -24,6 +24,8 @@ class ImgFileDlg : public QWidget
  public slots:
   void outputBrowse(void);
   void convertNowDlg();
+  void saveFormatSet(int index);
+  void saveOutDir(const QString &dir);
 
  signals:
   void filesList(QList<QString> filelist);
