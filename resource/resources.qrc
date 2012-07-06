@@ -1,6 +1,5 @@
 <RCC>
     <qresource>
         <file>../language/zh_CN.qm</file>
-        <file>./myapp.ico</file>
     </qresource>
 </RCC>

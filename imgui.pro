@@ -9,8 +9,6 @@ DEPENDPATH += . \
               language \
               resource \
               src \
-              build/CMakeFiles/CompilerIdC \
-              build/CMakeFiles/CompilerIdCXX
 INCLUDEPATH += . src
 
 # Input
@@ -32,7 +30,6 @@ SOURCES += build/qrc_resources.cxx \
            src/mainwindow.cpp \
            src/readerror.cpp \
            src/resizegrp.cpp \
-           build/CMakeFiles/CompilerIdC/CMakeCCompilerId.c \
-           build/CMakeFiles/CompilerIdCXX/CMakeCXXCompilerId.cpp
 RESOURCES += resource/resources.qrc
 TRANSLATIONS += language/zh_CN.ts
+RC_FILE = resource/myapp.rc
