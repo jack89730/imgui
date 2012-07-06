@@ -148,31 +148,31 @@ void Convert::convertFilesList(QList<QString> filelist)
             QString filename = imgFile.left(imgFile.lastIndexOf('.') + 1);
             filename = filename.mid(filename.lastIndexOf('/') + 1);
 
-            filename += settings.value("format", "fuck").toString();
+            QString suffix = settings.value("format", "fuck").toString();
+            filename += suffix;
             settings.endGroup();
             QString writeto(path + filename);
             if (QFile::exists(writeto)) {
                 if (allRenamed) {
-                    renameFile(writeto);
+                  renameFile(writeto, suffix);
                 } else if (!allOverride) {
                     int ret = QMessageBox::warning(this, tr("My Application"),
                                                    tr("The writeto File is existed, Do you want to override it.\n"
                                                       "If you selecet NO, \n "
                                                       "the writeto File will autorenamed xxx01.format"),
                                                    QMessageBox::Yes | QMessageBox::No
-                                                   | QMessageBox::YesToAll ,
-                                                   QMessageBox::NoToAll);
+                                                   | QMessageBox::YesToAll | QMessageBox::NoToAll);
                     switch (ret) {
                     case QMessageBox::Yes:
                         break;
                     case QMessageBox::No:
-                        renameFile(writeto);
+                      renameFile(writeto, suffix);
                         break;
                     case QMessageBox::YesToAll:
                         allOverride = true;
                         break;
                     case QMessageBox::NoToAll:
-                        renameFile(writeto);
+                      renameFile(writeto, suffix);
                         allRenamed = true;
                         break;
                     default:
@@ -192,13 +192,20 @@ void Convert::convertFilesList(QList<QString> filelist)
     }
 }
 
-void Convert::renameFile(QString &renameFilenames)
+void Convert::renameFile(QString &renameFilenames, const QString &suffix)
 {
     int i = 0;
     int dotIndex = renameFilenames.lastIndexOf('.');
-    QString suffix = renameFilenames.mid(dotIndex);
     while (QFile::exists(renameFilenames)) {
-        renameFilenames = QString("%1%2%3").arg(renameFilenames.left(dotIndex))
-                          .arg("-").arg(++i, 3).arg(suffix);
+      QString widthNum = QString::number(++i);
+      if (i < 10)
+        widthNum = QString("00") + widthNum;
+      else if (i < 100)
+        widthNum = QString("0") + widthNum;
+
+      QString tmp = "." + suffix;
+        
+      renameFilenames = QString("%1%2%3%4").arg(renameFilenames.left(dotIndex))
+          .arg("-").arg(widthNum).arg(tmp);
     }
 }

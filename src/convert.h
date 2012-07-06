@@ -9,7 +9,7 @@ class Convert : public QWidget
   
  public:
   Convert(QWidget *parent = 0);
-  void renameFile(QString &renameFilenames);
+  void renameFile(QString &renameFilenames,const QString &suffix);
 
  signals:
   void errorAppend(QString except);
