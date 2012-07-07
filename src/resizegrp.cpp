@@ -75,11 +75,15 @@ void ResizeGrp::isPercent(int checked)
     heightEdit->setRange(1, 100000);
     widthEdit->setValue(1000);
     heightEdit->setValue(1000);
+    onlySmaller->setEnabled(true);
+    onlyGreater->setEnabled(true);
   } else if (checked == Qt::Checked) {
     widthEdit->setRange(1, 100);
     heightEdit->setRange(1, 100);
     widthEdit->setValue(100);
     heightEdit->setValue(100);
+    onlySmaller->setDisabled(true);
+    onlyGreater->setDisabled(true);
   }
 }
 
@@ -90,14 +94,6 @@ void ResizeGrp::fixedPropo(int checked)
       heightEdit->setValue(widthEdit->value());
     else
       widthEdit->setValue(heightEdit->value());
-  }
-  if (percent->isChecked()) {
-    onlySmaller->setDisabled(true);
-    onlyGreater->setDisabled(true);
-  }
-  else {
-    onlySmaller->setEnabled(true);
-    onlyGreater->setEnabled(true);
   }
 }
 
@@ -131,9 +127,9 @@ void ResizeGrp::resizeOption(void)
     geometry += '%';
   if (!fixedProportion->isChecked())
     geometry += '!';
-  if (onlySmaller->isChecked())
+  if (onlySmaller->isChecked() && onlySmaller->isEnabled())
     geometry += '<';
-  if (onlyGreater->isChecked())
+  if (onlyGreater->isChecked() && onlyGreater->isEnabled())
     geometry += '>';
 
   QApplication::setOrganizationName("Sd44 Soft");

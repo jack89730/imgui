@@ -424,12 +424,12 @@ If you selecet NO,
     <message>
         <location filename="../src/resizegrp.cpp" line="29"/>
         <source>Resize smaller img only</source>
-        <translation>只调整比更小的图片</translation>
+        <translation>只调整比设定值更小的图片</translation>
     </message>
     <message>
         <location filename="../src/resizegrp.cpp" line="30"/>
         <source>Resize greater img only</source>
-        <translation>只调整更大的图片</translation>
+        <translation>只调整比设定值更大的图片</translation>
     </message>
     <message>
         <location filename="../src/resizegrp.cpp" line="52"/>

@@ -31,6 +31,6 @@ TRANSLATIONS += language/zh_CN.ts
 
 INCLUDEPATH += "d:\\GraphicsMagick-1.3.16-q8\\include" \
 LIBS += -L"d:\\GraphicsMagick-1.3.16-q8" \
- -L"d:\\GraphicsMagick-1.3.16-q8\\lib" -lCORE_RL_Magick++ -lCORE_RL_magick
+ -L"d:\\GraphicsMagick-1.3.16-q8\\lib" -lCORE_RL_Magick++_ -lCORE_RL_magick_
  
 RC_FILE = resource/myapp.rc
