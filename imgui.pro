@@ -5,7 +5,7 @@
 TEMPLATE = app
 TARGET = 
 DEPENDPATH += . language resource src
-INCLUDEPATH += . src
+INCLUDEPATH += . src /usr/include/GraphicsMagick
 
 # Input
 HEADERS += src/convert.h \

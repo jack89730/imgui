@@ -17,3 +17,7 @@ GPATH
 GRTAGS
 GSYMS
 
+# qt ,fly makefile
+
+*.pro
+Makefile
