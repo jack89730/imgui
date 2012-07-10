@@ -7,9 +7,9 @@ IF(CMAKE_COMPILER_IS_GNUCXX )
 ENDIF(CMAKE_COMPILER_IS_GNUCXX )
 
 set(CMAKE_USER_MAKE_RULES_OVERRIDE
-   ${CMAKE_CURRENT_SOURCE_DIR}/c_flag_overrides.cmake)
+   ${CMAKE_CURRENT_SOURCE_DIR}/cmake/c_flag_overrides.cmake)
 set(CMAKE_USER_MAKE_RULES_OVERRIDE_CXX
-   ${CMAKE_CURRENT_SOURCE_DIR}/cxx_flag_overrides.cmake)
+   ${CMAKE_CURRENT_SOURCE_DIR}/cmake/cxx_flag_overrides.cmake)
 
 PROJECT(IMGBATCHER)
 
