@@ -8,6 +8,8 @@ SET(MOMOIMG_SRC_LIST
   resizegrp.cpp
   readerror.cpp
   convert.cpp
+  ../resource/myapp.rc
+  
   )
 
 SET(MOMOIMG_MOC_HEADER
@@ -41,15 +43,25 @@ QT4_ADD_TRANSLATION(fuckingimg_RESOURCES ${fuckingimg_LANG})
 
 IF(WIN32)
   ADD_DEFINITIONS(-D_AFXDLL)
-  SET(CMAKE_MFC_FLAG 1) 
+  SET(CMAKE_MFC_FLAG 2) 
   SET(GUI_TYPE WIN32)
 ENDIF(WIN32)
+# Set some Apple MacOS Specific settings
+IF (APPLE)
+SET(GUI_TYPE MACOSX_BUNDLE)
+ENDIF (APPLE)
 
 ADD_EXECUTABLE(ImgBatch ${GUI_TYPE}
   ${MOMOIMG_SRC_LIST}
   ${fuckingimg_MOC_SRCS} 
   ${fuckingimg_RESOURCES}
   )
+
+IF(WIN32)
+  set_target_properties(ImgBatch PROPERTIES
+    COMPILE_DEFINITIONS _AFXDLL,_UNICODE,UNICODE,_BIND_TO_CURRENT_CRT_VERSION,_BIND_TO_CURRENT_MFC_VERSION
+    LINK_FLAGS "/ENTRY:\"mainCRTStartup\"")
+ENDIF(WIN32)
 
 TARGET_LINK_LIBRARIES(ImgBatch
   ${QT_LIBRARIES}

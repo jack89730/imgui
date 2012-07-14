@@ -185,8 +185,7 @@ void ImgFileModel::convertAll()
 
   QMapIterator<QString, bool> i(imgfilechecked);
   while (i.hasNext()) {
-    i.next();
-    if (i.value())
+    if (i.next().value())
       convertFiles += i.key();
  }
   emit filesList(convertFiles);
