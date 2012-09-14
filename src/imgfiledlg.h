@@ -22,16 +22,16 @@ class ImgFileDlg : public QWidget
   ImgFileDlg(QWidget *parent = 0);
   void setTips(void);
  public slots:
-  void outputBrowse(void);
   void convertNowDlg();
-  void saveFormatSet(int index);
-  void saveOutDir(const QString &dir);
 
  signals:
   void filesList(QList<QString> filelist);
   void removeConverted(QString imgFile);
   
  private slots:
+  void outputBrowse(void);
+  void saveFormatSet(int index);
+  void saveOutDir(const QString &dir);
   void addFiles();
   void addDirs();
   void removeSelected();

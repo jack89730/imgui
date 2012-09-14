@@ -21,7 +21,7 @@ class MainWindow : public QMainWindow
  public:
   MainWindow();
 
- public slots:
+ private slots:
   void convertNow(void);
 
  protected:

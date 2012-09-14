@@ -28,18 +28,18 @@ class GeneralOption : public QWidget
   QCheckBox *reduceNoise;
   QCheckBox *reduceSpeckleNoise;
   QCheckBox *enhance; // minimize noise
-  QCheckBox *normalize; // 归一化对比度
+  QCheckBox *normalize; // 
   QCheckBox *trim;
   QCheckBox *edge;       // Highlight img edge
   QCheckBox *emboss;     //3D highlight edge
   QCheckBox *equalize;   // histogram equalize
   QCheckBox *monoChrome; //black/white pic,Must use +dither
-                         //-colorspace gray -colors 2 效果更好
+                         //-colorspace gray -colors 2 is better
   
   QCheckBox *addNoise;
   QComboBox *noiseType;
 
-  QCheckBox *sharpen; //锐化
+  QCheckBox *sharpen; //
   QDoubleSpinBox *sharpenRadius; //Gaussian radius
   // QDoubleSpinBox *sharpenSigma; //Laplacian deviation
   QCheckBox *charcoal;                  //tan bi; radius 0.0 sigma 1.0

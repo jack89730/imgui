@@ -21,10 +21,12 @@ class ResizeGrp : public QWidget
   ResizeGrp(QWidget *parent = 0);
                      
  public slots:
+  void resizeOption(void);
+
+ private slots:
   void isPercent(int checked);
   void fixedPropo(int checked);
   void keepRatio(int size);
-  void resizeOption(void);
  private:
   QGroupBox *resize;
   QSpinBox *widthEdit;

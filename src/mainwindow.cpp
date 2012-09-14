@@ -88,6 +88,5 @@ void MainWindow::convertNow()
   resize->resizeOption();
   option->optionSettings();
   mainDlg->convertNowDlg();
-
 }
 
