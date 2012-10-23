@@ -12,10 +12,10 @@ class Convert : public QWidget
   void renameFile(QString &renameFilenames,const QString &suffix);
 
  signals:
-  void errorAppend(QString except);
-  void removeConverted(QString filename);
+  void errorAppend(const QString &except);
+  void removeConverted(const QString &filename);
  public slots:
-  void convertFilesList(QList<QString> filelist);
+  void convertFilesList(QStringList &fileLists);
 
  private:
   bool allOverride;

@@ -2,15 +2,16 @@
 #include <QtGui>
 
 ImgFileModel::ImgFileModel(QObject *parent)
-    : QAbstractTableModel(parent)
+  : QAbstractTableModel(parent)
 {
   modelheader << tr("Check") << tr("Filename") << tr("FileSize") << tr("FileType") << tr("AbsolutePath");
 }
 
 int ImgFileModel::rowCount(const QModelIndex & /* parent */) const
 {
-  return imgfilelist.count();
+  return imgfilelist.size();
 }
+
 
 int ImgFileModel::columnCount(const QModelIndex & /* parent */) const
 {
@@ -29,17 +30,17 @@ QVariant ImgFileModel::data(const QModelIndex &index, int role) const
   if (role == Qt::DisplayRole) {
     QString tmp;
     switch (index.column()) {
-      case 1:
-        return imgfilelist.at(index.row()).fileName();
-      case 2:
-        return imgfilelist.at(index.row()).size();
-      case 3:
-        tmp = imgfilelist.at(index.row()).suffix();
-        return tmp.toUpper();
-      case 4:
-        return imgfilelist.at(index.row()).absolutePath();
-      default:
-        return QVariant();
+    case 1:
+      return imgfilelist.at(index.row()).fileName();
+    case 2:
+      return imgfilelist.at(index.row()).size();
+    case 3:
+      tmp = imgfilelist.at(index.row()).suffix();
+      return tmp.toUpper();
+    case 4:
+      return imgfilelist.at(index.row()).absolutePath();
+    default:
+      return QVariant();
     }
   }
   if (role == Qt::CheckStateRole && index.column() == 0) {
@@ -72,6 +73,10 @@ QVariant ImgFileModel::headerData(int section, Qt::Orientation orientation,
   if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
     return modelheader.at(section);
   }
+  if (orientation == Qt::Vertical && role == Qt::DisplayRole &&
+      section != 0 )
+    return QString::number(section);
+
   return QVariant();
 }
 
@@ -85,8 +90,23 @@ Qt::ItemFlags ImgFileModel::flags(const QModelIndex & index) const
   return flags;
 }
 
+bool ImgFileModel::insertRows(int row, int count, const QModelIndex &index)
+{
+  Q_UNUSED(index);
+  beginInsertRows(QModelIndex(), row, row + count -1);
+  endInsertRows();
+}
+
+bool ImgFileModel::removeRows(int row, int count, const QModelIndex &index)
+{
+  Q_UNUSED(index);
+  beginRemoveRows(QModelIndex(), row, row + count -1);
+  endRemoveRows();
+}
+
 void ImgFileModel::addImgFile(const QStringList &filenames)
 {
+  int listSizeBefore = imgfilelist.size();
   for (int i = 0; i < filenames.count(); i++) {
     QFileInfo fi(filenames.at(i));
     if (imgfilechecked.find(fi.absoluteFilePath()) == imgfilechecked.end()) {
@@ -94,40 +114,34 @@ void ImgFileModel::addImgFile(const QStringList &filenames)
       imgfilechecked[fi.absoluteFilePath()] = true;
     }
   }
-  reset();
+  insertRows(listSizeBefore, imgfilelist.size() - listSizeBefore);
 }
 
-void ImgFileModel::addImgDir(const  QString path, const QStringList namefilters)
+void ImgFileModel::addImgDir(const  QString &path, const QStringList &namefilters)
 {
   QDir dir(path);
   QList<QFileInfo> newfilelist;
   newfilelist += dir.entryInfoList(namefilters, QDir::Files);
+  int listSizeBefore = imgfilelist.size();
   for (int i = 0; i < newfilelist.count(); i++) {
     if (imgfilechecked.find(newfilelist.at(i).absoluteFilePath()) == imgfilechecked.end()) {
       imgfilelist += newfilelist.at(i);
       imgfilechecked[newfilelist.at(i).absoluteFilePath()] = true;
     }
   }
-  reset();
+  insertRows(listSizeBefore, imgfilelist.size() - listSizeBefore);
 }
-void ImgFileModel::addImgDirs(const  QString path, const QStringList namefilters)
-{
-  QDir dir(path);
-  QList<QFileInfo> newfilelist;
-  newfilelist += dir.entryInfoList(namefilters, QDir::Files);
-  for (int i = 0; i < newfilelist.count(); i++) {
-    if (imgfilechecked.find(newfilelist.at(i).absoluteFilePath()) == imgfilechecked.end()) {
-      imgfilelist += newfilelist.at(i);
-      imgfilechecked[newfilelist.at(i).absoluteFilePath()] = true;
-    }
-  }
 
+void ImgFileModel::addImgDirs(const  QString &path, const QStringList &namefilters)
+{
+  addImgDir(path, namefilters);
+
+  QDir dir(path);
   QStringList dirs = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot | QDir::Hidden) ;
   for (int i = 0; i < dirs.count() ; i++) {
     QString absolutePath(path + '/' + dirs.at(i));
     addImgDirs(absolutePath, namefilters);
   }
-  reset();
 }
 
 void ImgFileModel::selectAll()
@@ -150,26 +164,26 @@ void ImgFileModel::unSelectAll()
   reset();
 }
 
-/* TODO: it's too stupid...占用资源。。。*/
-void ImgFileModel::removeFile(QModelIndexList indexlist)
+void ImgFileModel::removeFile(const QModelIndexList &indexlist)
 {
-  QMutableListIterator<QModelIndex> i(indexlist);
-  QStringList rmFiles;        /* 用户想要删除文件的绝对路径名列表 */
-  QList<QFileInfo> rmFileInfoList;
+  QListIterator<QModelIndex> i(indexlist);
+  QStringList rmFiles;        /* absoluteFilePath that users want Del */
+  QList<int> delRowsList;
+  int rowNum;
   while (i.hasNext()) {
-    i.next();
-    int rowNum = i.value().row();
+    rowNum = i.next().row();
     rmFiles << imgfilelist.at(rowNum).absoluteFilePath();
+    delRowsList.append(rowNum);
   }
   for (int j = 0; j < rmFiles.size(); j++) {
-    for (int k = 0; k < imgfilelist.size() ; ++k) {
-      if (imgfilelist.at(k).absoluteFilePath() == rmFiles.at(j)) {
-        imgfilelist.removeAt(k);
-      }
-    }
     imgfilechecked.remove(rmFiles.at(j));
   }
-  reset();
+  qSort(delRowsList);
+  for (int pos = delRowsList.size(); pos > 0; ++pos) {
+    rowNum = delRowsList.at(pos -1);
+    imgfilelist.removeAt(rowNum);
+    removeRows(rowNum, 1);
+  }
 }
 
 void ImgFileModel::removeAll()
@@ -181,22 +195,23 @@ void ImgFileModel::removeAll()
 
 void ImgFileModel::convertAll()
 {
-  QList<QString> convertFiles;
+  QStringList convertFiles;
 
   QMapIterator<QString, bool> i(imgfilechecked);
   while (i.hasNext()) {
     if (i.next().value())
       convertFiles += i.key();
- }
+  }
   emit filesList(convertFiles);
 }
 
-void ImgFileModel::removeConverted(const QString filename)
+void ImgFileModel::removeConverted(const QString &filename)
 {
   imgfilechecked.remove(filename);
   for (int i = 0; i < imgfilelist.size(); i++)
     if (filename == imgfilelist.at(i).absoluteFilePath()) {
       imgfilelist.removeAt(i);
+      removeRows(i, 1);
       break;
     }
 }

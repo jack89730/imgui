@@ -9,11 +9,12 @@ MainWindow::MainWindow()
   mainDlg = new ImgFileDlg;
   exceptError = new ReadError;
   convert = new Convert;
-  connect(convert, SIGNAL(errorAppend(QString)), exceptError, SLOT(appendText(QString)));
-  connect(mainDlg, SIGNAL(filesList(QList<QString>)),
-          convert, SLOT(convertFilesList(QList<QString>)));
-  connect(convert, SIGNAL(removeConverted(QString)),
-          mainDlg, SIGNAL(removeConverted(QString)));
+  connect(convert, SIGNAL(errorAppend(const QString&)),
+          exceptError, SLOT(appendText(const QString &)));
+  connect(mainDlg, SIGNAL(filesList(QStringList &)),
+          convert, SLOT(convertFilesList(QStringList &)));
+  connect(convert, SIGNAL(removeConverted(const QString &)),
+          mainDlg, SIGNAL(removeConverted(const QString &)));
 
   convertButton = new QPushButton(tr("Convert Now"));
   connect(convertButton, SIGNAL(clicked()), this, SLOT(convertNow()));
@@ -89,4 +90,3 @@ void MainWindow::convertNow()
   option->optionSettings();
   mainDlg->convertNowDlg();
 }
-

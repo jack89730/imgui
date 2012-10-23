@@ -12,7 +12,7 @@ class ReadError : public QWidget
  public:
   ReadError(QWidget *parent = 0);
  public slots:
-  void appendText(QString text);
+  void appendText(const QString &text);
   
  private:
   QTextEdit *errorText;

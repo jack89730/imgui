@@ -18,19 +18,21 @@ class ImgFileModel : public QAbstractTableModel
   bool setData(const QModelIndex &index, const QVariant &value, int role);
   QVariant headerData(int section, Qt::Orientation orientation, int role) const;
   Qt::ItemFlags flags(const QModelIndex &index) const;
-  void addImgFile(const QStringList &filenames); 
-  void addImgDir(const QString path, const QStringList namefilters = QStringList());
-  void addImgDirs(const QString path, const QStringList namefilters = QStringList());
+  bool insertRows(int row, int count, const QModelIndex &index = QModelIndex());
+  bool removeRows(int row, int count, const QModelIndex &index = QModelIndex());
+  void addImgFile(const QStringList &filenames);
+  void addImgDir(const QString &path, const QStringList &namefilters = QStringList());
+  void addImgDirs(const QString &path, const QStringList &namefilters = QStringList());
 
  public slots:
   void selectAll();
   void unSelectAll();
-  void removeFile(QModelIndexList indexlist);
+  void removeFile(const QModelIndexList &indexlist);
   void removeAll();
   void convertAll();
-  void removeConverted(const QString filename);
+  void removeConverted(const QString &filename);
  signals:
-  void filesList(QList<QString> filelist);
+  void filesList(QStringList &filelist);
   
  private:
   QStringList modelheader;

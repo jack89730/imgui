@@ -25,8 +25,8 @@ class ImgFileDlg : public QWidget
   void convertNowDlg();
 
  signals:
-  void filesList(QList<QString> filelist);
-  void removeConverted(QString imgFile);
+  void filesList(QStringList &filelist);
+  void removeConverted(const QString &imgFile);
   
  private slots:
   void outputBrowse(void);
@@ -35,6 +35,7 @@ class ImgFileDlg : public QWidget
   void addFiles();
   void addDirs();
   void removeSelected();
+
  private:
   LoadFormats loadformat;
   ImgFileModel *model;

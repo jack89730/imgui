@@ -19,7 +19,7 @@ ReadError::ReadError(QWidget *parent)
   setLayout(mainLayout);
 }
 
-void ReadError::appendText(QString text)
+void ReadError::appendText(const QString &text)
 {
   errorText->append(text);
 }

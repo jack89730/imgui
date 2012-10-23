@@ -11,7 +11,7 @@ Convert::Convert(QWidget *parent)
 {
 }
 
-void Convert::convertFilesList(QList<QString> filelist)
+void Convert::convertFilesList(QStringList &filelist)
 {
     allOverride = false;
     allRenamed = false;
