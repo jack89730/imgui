@@ -95,6 +95,7 @@ bool ImgFileModel::insertRows(int row, int count, const QModelIndex &index)
   Q_UNUSED(index);
   beginInsertRows(QModelIndex(), row, row + count -1);
   endInsertRows();
+  return true;
 }
 
 bool ImgFileModel::removeRows(int row, int count, const QModelIndex &index)
@@ -102,6 +103,7 @@ bool ImgFileModel::removeRows(int row, int count, const QModelIndex &index)
   Q_UNUSED(index);
   beginRemoveRows(QModelIndex(), row, row + count -1);
   endRemoveRows();
+  return true;
 }
 
 void ImgFileModel::addImgFile(const QStringList &filenames)

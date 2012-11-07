@@ -1,25 +1,37 @@
 
 #ifndef _CONVERT_H_
 #define _CONVERT_H_
-#include <QWidget>
+#include <QStringList>
+#include <QObject>
 
-class Convert : public QWidget
+enum EXISTSPROCESS{IGNORE, ALLRENAMED, ALLOVERRIDE};
+
+class Convert : public QObject
 {
   Q_OBJECT
   
  public:
-  Convert(QWidget *parent = 0);
-  void renameFile(QString &renameFilenames,const QString &suffix);
+  Convert(QObject *parent = 0);
 
- signals:
+signals:
+  void fileExists();
+  void setProgressRange(int min, int max);
+  void setProgressValue(int value);
   void errorAppend(const QString &except);
   void removeConverted(const QString &filename);
+  void finished();
  public slots:
-  void convertFilesList(QStringList &fileLists);
+  void startConvert();
+  void convertFilesList(const QStringList &fileLists);
+  void cancelProgress();
+  void renameFile();
+  void setExistsProcess(int value);
 
  private:
-  bool allOverride;
-  bool allRenamed;
+  QStringList convertFiles;
+  QString writeToFile;
+  QString suffix;
+  EXISTSPROCESS exists;
 };
 
 

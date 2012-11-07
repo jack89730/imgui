@@ -32,7 +32,7 @@ class ImgFileModel : public QAbstractTableModel
   void convertAll();
   void removeConverted(const QString &filename);
  signals:
-  void filesList(QStringList &filelist);
+  void filesList(const QStringList &filelist);
   
  private:
   QStringList modelheader;

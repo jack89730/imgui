@@ -15,7 +15,7 @@ PROJECT(IMGBATCHER)
 
 # ADD_DEFINITIONS( ${OPTIMIZATION_FLAGS} )
 
-# SET(CMAKE_BUILD_TYPE Release)   
+# SET(CMAKE_BUILD_TYPE Debug)
 SET( CMAKE_BUILD_TYPE "${CMAKE_BUILD_TYPE}" CACHE STRING
     "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel Maintainer."
     FORCE )

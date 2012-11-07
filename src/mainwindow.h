@@ -13,6 +13,7 @@ class QSplitter;
 class QPushButton;
 class QVBoxLayout;
 class QHBoxLayout;
+class QProgressDialog;
 
 class MainWindow : public QMainWindow
 {
@@ -21,8 +22,13 @@ class MainWindow : public QMainWindow
  public:
   MainWindow();
 
+signals:
+  void setExistsProcess(int value);
+  void renameFile();
+ public slots:
+  void isAllOveride();
  private slots:
-  void convertNow(void);
+  void convertNow();
 
  protected:
   void closeEvent(QCloseEvent *event);
@@ -36,6 +42,7 @@ class MainWindow : public QMainWindow
   ReadError *exceptError;
   Convert *convert;
   QPushButton *convertButton;
+  QProgressDialog *progressDialog;
 
   QHBoxLayout *convertHL;
   QVBoxLayout *leftLayout;

@@ -7,8 +7,8 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   model = new ImgFileModel;
   connect(this, SIGNAL(removeConverted(const QString&)),
           model, SLOT(removeConverted(const QString&)));
-  connect(model, SIGNAL(filesList(QStringList &)),
-          this, SIGNAL(filesList(QStringList &)));
+  connect(model, SIGNAL(filesList(QStringList)),
+          this, SIGNAL(filesList(QStringList)));
 
   tableView = new QTableView;
   tableView->horizontalHeader()->setStretchLastSection(true);
