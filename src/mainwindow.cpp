@@ -38,7 +38,7 @@ MainWindow::MainWindow()
   readSettings();
 }
 
-void MainWindow::isAllOveride()
+int MainWindow::isAllOveride()
 {
   int ret = QMessageBox::warning(this, tr("My Application"),
                                  tr("The writeto File is existed, "
@@ -49,19 +49,16 @@ void MainWindow::isAllOveride()
                                  | QMessageBox::YesToAll | QMessageBox::NoToAll);
   switch (ret) {
   case QMessageBox::Yes:
-    break;
+    return 0;
   case QMessageBox::No:
-    emit renameFile();
-    break;
+    return 1;
   case QMessageBox::YesToAll:
-    emit setExistsProcess(2);
-    break;
+    return 2;
   case QMessageBox::NoToAll:
-    emit renameFile();
-    emit setExistsProcess(1);
-    break;
+    return 3;
   default:
     qDebug() << "What's fucking happend at writefile." << endl;
+    return -1;
     }
 }
 
@@ -105,8 +102,10 @@ void MainWindow::writeSettings()
 
 void MainWindow::convertNow()
 {
+  convertButton->setEnabled(false);
   QThread *thread = new QThread;
   convert = new Convert;
+  convert->mainWindow = this;
 
   connect(mainDlg, SIGNAL(filesList(QStringList)),
           convert, SLOT(convertFilesList(QStringList)));
@@ -128,12 +127,8 @@ void MainWindow::convertNow()
   connect(convert, SIGNAL(setProgressValue(int)),
           progressDialog, SLOT(setValue(int)));
 
-  connect(convert, SIGNAL(fileExists()),
-          this, SLOT(isAllOveride()), Qt::BlockingQueuedConnection);
-  connect(this, SIGNAL(renameFile()),
-          convert, SLOT(renameFile()));
-  connect(this, SIGNAL(setExistsProcess(int)),
-          convert, SLOT(setExistsProcess(int)));
+  connect(convert, SIGNAL(finished()), this, SLOT(enableConvert()));
+
 
   connect(convert, SIGNAL(errorAppend(const QString &)),
           exceptError, SLOT(appendText(const QString &)));
@@ -149,4 +144,9 @@ void MainWindow::convertNow()
 
   convert->moveToThread(thread);
   thread->start();
+}
+
+void MainWindow::enableConvert()
+{
+  convertButton->setEnabled(true);
 }

@@ -3,8 +3,9 @@
 #define _CONVERT_H_
 #include <QStringList>
 #include <QObject>
+class MainWindow;
 
-enum EXISTSPROCESS{IGNORE, ALLRENAMED, ALLOVERRIDE};
+enum EXISTSPROCESS{OVERRIDE, RENAME, ALLOVERRIDE, ALLRENAMED};
 
 class Convert : public QObject
 {
@@ -12,9 +13,9 @@ class Convert : public QObject
   
  public:
   Convert(QObject *parent = 0);
+  QObject *mainWindow;
 
 signals:
-  void fileExists();
   void setProgressRange(int min, int max);
   void setProgressValue(int value);
   void errorAppend(const QString &except);
@@ -24,10 +25,9 @@ signals:
   void startConvert();
   void convertFilesList(const QStringList &fileLists);
   void cancelProgress();
-  void renameFile();
-  void setExistsProcess(int value);
 
  private:
+  void renameFile();
   QStringList convertFiles;
   QString writeToFile;
   QString suffix;

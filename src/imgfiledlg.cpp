@@ -173,7 +173,7 @@ void ImgFileDlg::convertNowDlg()
   settings.beginGroup("output");
   settings.setValue("outputDir", outputDir->text());
   QString outFormat = convertBox->currentText();
-  settings.setValue("format", outFormat.left(outFormat.indexOf(' ')));
+  settings.setValue("format", outFormat.left(outFormat.indexOf('-')));
   model->convertAll();
 }
   

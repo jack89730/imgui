@@ -1,4 +1,3 @@
-
 #ifndef _MAINWINDOW_H_
 #define _MAINWINDOW_H_
 
@@ -22,11 +21,9 @@ class MainWindow : public QMainWindow
  public:
   MainWindow();
 
-signals:
-  void setExistsProcess(int value);
-  void renameFile();
- public slots:
-  void isAllOveride();
+public slots:
+  void enableConvert();
+  int isAllOveride();
  private slots:
   void convertNow();
 

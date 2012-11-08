@@ -17,7 +17,7 @@ void Convert::convertFilesList(const QStringList &filelist)
 
 void Convert::startConvert()
 {
-  exists = IGNORE;
+  exists = OVERRIDE;
 
   Image img;
 
@@ -26,7 +26,15 @@ void Convert::startConvert()
   QCoreApplication::setApplicationName("Super Img Batcher");
   QSettings settings;
 
+  // FIXME: if except error, then the ImgFile maybe 0 bytes....
+  settings.beginGroup("output");
+  // TODO: 批量修改文件名
+  QString path = QDir::homePath();
+  if (settings.value("outputDir").isValid())
+    path = settings.value("outputDir").toString() + "/";
   suffix = settings.value("format", "fuck").toString().toLower();
+  settings.endGroup();
+
   int progressRange = convertFiles.size();
   emit setProgressRange(0, progressRange);
   int fileNumbers = 0;
@@ -132,24 +140,37 @@ void Convert::startConvert()
           }
         settings.endGroup();
 
-        // FIXME: if except error, then the ImgFile maybe 0 bytes....
-        settings.beginGroup("output");
-        // TODO: 批量修改文件名
-        QString path = QDir::homePath();
-        if (settings.value("outputDir").isValid())
-            path = settings.value("outputDir").toString() + "/";
 
         QString filename = imgFile.left(imgFile.lastIndexOf('.') + 1);
         filename = filename.mid(filename.lastIndexOf('/') + 1);
 
         filename += suffix;
-        settings.endGroup();
         writeToFile = QString(path + filename);
         if (QFile::exists(writeToFile)) {
             if (exists == ALLRENAMED) {
                 renameFile();
               } else if (exists != ALLOVERRIDE) {
-                emit fileExists();
+                int isOveride;
+                QMetaObject::invokeMethod(mainWindow,
+                                          "isAllOveride",
+                                          Qt::BlockingQueuedConnection,
+                                          Q_RETURN_ARG(int, isOveride));
+                switch (isOveride) {
+                case 0:
+                  break;
+                case 1:
+                  renameFile();
+                  break;
+                case 2:
+                  exists = ALLOVERRIDE;
+                  break;
+                case 3:
+                  exists = ALLRENAMED;
+                  renameFile();
+                  break;
+                default:
+                  qDebug() << "fuck error in isAllOveride";
+                  }
               }
           }
 
@@ -189,12 +210,3 @@ void Convert::renameFile()
           .arg("-").arg(widthNum).arg(tmp);
     }
 }
-
-void Convert::setExistsProcess(int value) //0,ignore;1, allrenamed, 2,AllOveride
-{
-  if (value == 1)
-    exists = ALLRENAMED;
-  if (value == 2)
-    exists = ALLOVERRIDE;
-}
-
