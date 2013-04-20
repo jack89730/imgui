@@ -53,14 +53,16 @@ QVariant ImgFileModel::data(const QModelIndex &index, int role) const
   return QVariant();
 }
 
-bool ImgFileModel::setData(const QModelIndex &index, const QVariant& /* &value */, int /* role */)
+bool ImgFileModel::setData(const QModelIndex &index, const QVariant &value , int role)
 {
   if (!index.isValid()) {
     return false;
   }
-  if (index.column() == 0) {
-    const bool tmp = imgfilechecked.value(imgfilelist.at(index.row()).absoluteFilePath());
-    imgfilechecked[imgfilelist.at(index.row()).absoluteFilePath()] = !tmp;
+  if (index.column() == 0 && role == Qt::CheckStateRole) {
+    if (value == Qt::Checked)
+      imgfilechecked[imgfilelist.at(index.row()).absoluteFilePath()] = true;
+    else
+      imgfilechecked[imgfilelist.at(index.row()).absoluteFilePath()] = false;
     emit dataChanged(index, index);
     return true;
   }
@@ -112,11 +114,12 @@ void ImgFileModel::addImgFile(const QStringList &filenames)
   for (int i = 0; i < filenames.count(); i++) {
     QFileInfo fi(filenames.at(i));
     if (imgfilechecked.find(fi.absoluteFilePath()) == imgfilechecked.end()) {
+      beginInsertRows(QModelIndex(), listSizeBefore++, 1);
       imgfilelist += fi;
       imgfilechecked[fi.absoluteFilePath()] = true;
+      endInsertRows();
     }
   }
-  insertRows(listSizeBefore, imgfilelist.size() - listSizeBefore);
 }
 
 void ImgFileModel::addImgDir(const  QString &path, const QStringList &namefilters)
@@ -127,11 +130,12 @@ void ImgFileModel::addImgDir(const  QString &path, const QStringList &namefilter
   int listSizeBefore = imgfilelist.size();
   for (int i = 0; i < newfilelist.count(); i++) {
     if (imgfilechecked.find(newfilelist.at(i).absoluteFilePath()) == imgfilechecked.end()) {
+      beginInsertRows(QModelIndex(), listSizeBefore++, 1);
       imgfilelist += newfilelist.at(i);
       imgfilechecked[newfilelist.at(i).absoluteFilePath()] = true;
+      endInsertRows();
     }
   }
-  insertRows(listSizeBefore, imgfilelist.size() - listSizeBefore);
 }
 
 void ImgFileModel::addImgDirs(const  QString &path, const QStringList &namefilters)
@@ -148,51 +152,52 @@ void ImgFileModel::addImgDirs(const  QString &path, const QStringList &namefilte
 
 void ImgFileModel::selectAll()
 {
+  beginResetModel();
   QMutableMapIterator<QString, bool> i(imgfilechecked);
   while (i.hasNext()) {
     i.next();
     i.value() = true;
   }
-  reset();
+  endResetModel();
 }
 
 void ImgFileModel::unSelectAll()
 {
   QMutableMapIterator<QString, bool> i(imgfilechecked);
+  beginResetModel();
   while (i.hasNext()) {
     i.next();
     i.value() = false;
   }
-  reset();
+  endResetModel();
 }
 
 void ImgFileModel::removeFile(const QModelIndexList &indexlist)
 {
   QListIterator<QModelIndex> i(indexlist);
-  QStringList rmFiles;        /* absoluteFilePath that users want Del */
   QList<int> delRowsList;
   int rowNum;
   while (i.hasNext()) {
     rowNum = i.next().row();
-    rmFiles << imgfilelist.at(rowNum).absoluteFilePath();
     delRowsList.append(rowNum);
   }
-  for (int j = 0; j < rmFiles.size(); j++) {
-    imgfilechecked.remove(rmFiles.at(j));
-  }
+
   qSort(delRowsList);
   for (int pos = delRowsList.size(); pos > 0; ++pos) {
     rowNum = delRowsList.at(pos -1);
+    beginRemoveRows(QModelIndex(), rowNum, rowNum);
+    imgfilechecked.remove(imgfilelist.at(rowNum).absoluteFilePath());
     imgfilelist.removeAt(rowNum);
-    removeRows(rowNum, 1);
+    endRemoveRows();
   }
 }
 
 void ImgFileModel::removeAll()
 {
+  beginResetModel();
   imgfilelist.clear();
   imgfilechecked.clear();
-  reset();
+  endResetModel();
 }
 
 void ImgFileModel::convertAll()
@@ -209,11 +214,12 @@ void ImgFileModel::convertAll()
 
 void ImgFileModel::removeConverted(const QString &filename)
 {
-  imgfilechecked.remove(filename);
   for (int i = 0; i < imgfilelist.size(); i++)
     if (filename == imgfilelist.at(i).absoluteFilePath()) {
+      beginRemoveRows(QModelIndex(), i, i);
       imgfilelist.removeAt(i);
-      removeRows(i, 1);
+      imgfilechecked.remove(filename);
+      endRemoveRows();
       break;
     }
 }

@@ -13,7 +13,6 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
   tableView = new QTableView;
   tableView->horizontalHeader()->setStretchLastSection(true);
   tableView->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-  tableView->horizontalHeader()->setResizeMode(4, QHeaderView::Stretch);
   tableView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   tableView->adjustSize();
   tableView->setShowGrid(false);
@@ -78,7 +77,7 @@ ImgFileDlg::ImgFileDlg(QWidget *parent)
 
   int curIndex = settings.value("mainWindow/formatIndex", 20).toInt();
   convertBox->setCurrentIndex(curIndex);
-  QString xx = settings.value("mainWindow/outDir", QDir::homePath()).toString();
+  QString xx = settings.value("mainWindow/outDir", QDir::toNativeSeparators(QDir::homePath())).toString();
   outputDir->setText(xx);
 
   QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -148,7 +147,7 @@ void ImgFileDlg::outputBrowse()
     QFileDialog::getExistingDirectory(this, tr("Add Directory"), path,
                                       QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
   if (!dir.isEmpty())
-    outputDir->setText(dir);
+    outputDir->setText(QDir::toNativeSeparators(dir));
 }
 
 void ImgFileDlg::convertNowDlg()
