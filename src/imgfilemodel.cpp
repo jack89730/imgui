@@ -9,7 +9,7 @@ ImgFileModel::ImgFileModel(QObject *parent)
 
 int ImgFileModel::rowCount(const QModelIndex & /* parent */) const
 {
-  return imgfilelist.size();
+  return imgfilechecked.size();
 }
 
 
@@ -75,9 +75,8 @@ QVariant ImgFileModel::headerData(int section, Qt::Orientation orientation,
   if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
     return modelheader.at(section);
   }
-  if (orientation == Qt::Vertical && role == Qt::DisplayRole &&
-      section != 0 )
-    return QString::number(section);
+  if (orientation == Qt::Vertical && section < imgfilelist.size() && role == Qt::DisplayRole)
+    return QString::number(section + 1);
 
   return QVariant();
 }
@@ -114,7 +113,8 @@ void ImgFileModel::addImgFile(const QStringList &filenames)
   for (int i = 0; i < filenames.count(); i++) {
     QFileInfo fi(filenames.at(i));
     if (imgfilechecked.find(fi.absoluteFilePath()) == imgfilechecked.end()) {
-      beginInsertRows(QModelIndex(), listSizeBefore++, 1);
+      beginInsertRows(QModelIndex(), listSizeBefore, listSizeBefore);
+      ++listSizeBefore;
       imgfilelist += fi;
       imgfilechecked[fi.absoluteFilePath()] = true;
       endInsertRows();
@@ -130,7 +130,8 @@ void ImgFileModel::addImgDir(const  QString &path, const QStringList &namefilter
   int listSizeBefore = imgfilelist.size();
   for (int i = 0; i < newfilelist.count(); i++) {
     if (imgfilechecked.find(newfilelist.at(i).absoluteFilePath()) == imgfilechecked.end()) {
-      beginInsertRows(QModelIndex(), listSizeBefore++, 1);
+      beginInsertRows(QModelIndex(), listSizeBefore, listSizeBefore);
+      ++listSizeBefore;
       imgfilelist += newfilelist.at(i);
       imgfilechecked[newfilelist.at(i).absoluteFilePath()] = true;
       endInsertRows();
@@ -183,7 +184,7 @@ void ImgFileModel::removeFile(const QModelIndexList &indexlist)
   }
 
   qSort(delRowsList);
-  for (int pos = delRowsList.size(); pos > 0; ++pos) {
+  for (int pos = delRowsList.size(); pos > 0; --pos) {
     rowNum = delRowsList.at(pos -1);
     beginRemoveRows(QModelIndex(), rowNum, rowNum);
     imgfilechecked.remove(imgfilelist.at(rowNum).absoluteFilePath());
@@ -214,7 +215,7 @@ void ImgFileModel::convertAll()
 
 void ImgFileModel::removeConverted(const QString &filename)
 {
-  for (int i = 0; i < imgfilelist.size(); i++)
+  for (int i = imgfilelist.size() - 1; i >= 0; --i)
     if (filename == imgfilelist.at(i).absoluteFilePath()) {
       beginRemoveRows(QModelIndex(), i, i);
       imgfilelist.removeAt(i);

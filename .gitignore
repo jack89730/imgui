@@ -19,5 +19,7 @@ GSYMS
 
 # qt ,fly makefile
 
-*.pro
 Makefile
+
+*.user*
+*.user.*

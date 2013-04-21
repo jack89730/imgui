@@ -4,21 +4,18 @@
 <context>
     <name>Convert</name>
     <message>
-        <location filename="../src/convert.cpp" line="29"/>
         <source>Converting now</source>
-        <translation>开始转换</translation>
+        <translation type="obsolete">开始转换</translation>
     </message>
     <message>
-        <location filename="../src/convert.cpp" line="159"/>
         <source>My Application</source>
-        <translation>子墨批量图像处理</translation>
+        <translation type="obsolete">子墨批量图像处理</translation>
     </message>
     <message>
-        <location filename="../src/convert.cpp" line="160"/>
         <source>The writeto File is existed, Do you want to override it.
 If you selecet NO, 
  the writeto File will autorenamed xxx01.format</source>
-        <translation>要写入的文件已存在，你是否想覆盖它？如果你选择NO，要写入的文件会自动更名为 xxx-01.format之类的文件。</translation>
+        <translation type="obsolete">要写入的文件已存在，你是否想覆盖它？如果你选择NO，要写入的文件会自动更名为 xxx-01.format之类的文件。</translation>
     </message>
 </context>
 <context>
@@ -260,90 +257,90 @@ If you selecet NO,
     </message>
     <message>
         <location filename="../src/imgfiledlg.cpp" line="48"/>
-        <location filename="../src/imgfiledlg.cpp" line="53"/>
+        <location filename="../src/imgfiledlg.cpp" line="52"/>
         <source>Convert Format</source>
         <translation>转换为格式</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="60"/>
+        <location filename="../src/imgfiledlg.cpp" line="59"/>
         <source>Output Dir</source>
         <translation>输出文件夹</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="62"/>
+        <location filename="../src/imgfiledlg.cpp" line="61"/>
         <source>Browse</source>
         <translation>浏览</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="84"/>
+        <location filename="../src/imgfiledlg.cpp" line="95"/>
         <source>Convert To the Format Speced By right box</source>
         <translation>转换为右边BOX所指定的格式</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="85"/>
+        <location filename="../src/imgfiledlg.cpp" line="96"/>
         <source>in the right, Choose Output Dir</source>
         <translation>在右边，选择输出文件夹</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="87"/>
-        <location filename="../src/imgfiledlg.cpp" line="88"/>
+        <location filename="../src/imgfiledlg.cpp" line="98"/>
+        <location filename="../src/imgfiledlg.cpp" line="99"/>
         <source>Add Image Files</source>
         <translation>添加图片文件</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="89"/>
+        <location filename="../src/imgfiledlg.cpp" line="100"/>
         <source>Add Image Folder, Can Rescuse Subdir</source>
         <translation>添加图片文件夹，可递归</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="90"/>
+        <location filename="../src/imgfiledlg.cpp" line="101"/>
         <source>Check All</source>
         <translation>CHECK全部</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="91"/>
+        <location filename="../src/imgfiledlg.cpp" line="102"/>
         <source>UnCheck All</source>
         <translation>Uncheck全部</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="92"/>
+        <location filename="../src/imgfiledlg.cpp" line="103"/>
         <source>Remove The Images by Selected Lines</source>
         <translation>删除选中的高亮的行</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="93"/>
+        <location filename="../src/imgfiledlg.cpp" line="104"/>
         <source>Remove All Images From Table</source>
         <translation>从表中移除所有图像文件</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="101"/>
+        <location filename="../src/imgfiledlg.cpp" line="112"/>
         <source>Add Images</source>
         <translation>添加文件</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="112"/>
-        <location filename="../src/imgfiledlg.cpp" line="136"/>
+        <location filename="../src/imgfiledlg.cpp" line="123"/>
+        <location filename="../src/imgfiledlg.cpp" line="147"/>
         <source>Add Directory</source>
         <translation>添加文件夹</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="115"/>
+        <location filename="../src/imgfiledlg.cpp" line="126"/>
         <source>contant SubDir?</source>
         <translation>是否包含子文件夹</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="116"/>
+        <location filename="../src/imgfiledlg.cpp" line="127"/>
         <source>Do you want add files in subdirectory recursively ?
 </source>
         <translation>是否递归添加子文件夹中的图像文件</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="151"/>
+        <location filename="../src/imgfiledlg.cpp" line="162"/>
         <source>The output Dir isn&apos;t Exists</source>
         <translation>输出文件夹不存在</translation>
     </message>
     <message>
-        <location filename="../src/imgfiledlg.cpp" line="152"/>
+        <location filename="../src/imgfiledlg.cpp" line="163"/>
         <source>Do you want auto Create this Dir 
 </source>
         <comment>If you Not, images will not to Convert</comment>
@@ -381,14 +378,33 @@ If you selecet NO,
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../src/mainwindow.cpp" line="18"/>
+        <location filename="../src/mainwindow.cpp" line="11"/>
         <source>Convert Now</source>
         <translation>开始转换！</translation>
     </message>
     <message>
+        <location filename="../src/mainwindow.cpp" line="37"/>
+        <source>QGM Image Batcher</source>
+        <translation>QGM批量图像处理</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="43"/>
+        <source>My Application</source>
+        <translation>QGM批量图像处理</translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow.cpp" line="44"/>
-        <source>Fucking Image Batcher</source>
-        <translation></translation>
+        <source>The writeto File is existed, Do you want to override it.
+If you selecet NO, 
+ the writeto File will autorenamed xxx01.format</source>
+        <translation>要写入的文件已存在，你是否想覆盖它？
+如果你选择NO，
+即将写入的文件会自动更名为 xxx-01.format之类的文件。</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="120"/>
+        <source>Converting Image files now</source>
+        <translation>开始转换文件</translation>
     </message>
 </context>
 <context>

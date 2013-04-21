@@ -34,7 +34,7 @@ MainWindow::MainWindow()
   widget->setLayout(mainLayout);
   setCentralWidget(widget);
   
-  setWindowTitle(tr("Fucking Image Batcher"));
+  setWindowTitle(tr("QGM Image Batcher"));
   readSettings();
 }
 
