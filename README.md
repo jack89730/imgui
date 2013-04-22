@@ -15,7 +15,7 @@ QGM Image Batcher
 ####二进制包下载：####
 Linux：因各Linux发行版开发环境均有略微差异，如gcc/Qt版本等，因此不提供Linux下二进制包的下载，请自行编译，使用源代码目录中的cmake即可。
 
-Windows：暂时只提供基于MinGW编译的安装包。下载地址为：[点我下载](http://)
+Windows：暂时只提供基于MinGW编译的安装包。下载地址为：[点我下载](https://qgm-image-batcher.googlecode.com/files/QGM%20Image%20Batcher_v1.0.0.0_Setup.exe)
 
 鸣谢
 ----------
@@ -28,8 +28,8 @@ Windows：暂时只提供基于MinGW编译的安装包。下载地址为：[点�
 
 最感谢的，还是爸爸、妈妈、老婆、小墨墨。。。。
 
-如有使用问题或更好建议，与我联系
-<sd44sd44@yeah.net>
+如有使用问题或更好建议，与我联系 <sd44sd44@yeah.net>
+
 我的主页：  [http://sd44.is-programmer.com](http://sd44.is-programmer.com )
 项目主页：  [http://sd44.github.com](http://sd44.github.com )
 
